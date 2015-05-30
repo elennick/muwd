@@ -1,10 +1,11 @@
-package muwd.model;
+package com.wgg.muwd.controller.model;
 
-/**
- * Created by evan.lennick on 5/30/15.
- */
-public class InputMessage {
+public class ResponseMessage {
     private String content;
+
+    public ResponseMessage(String content) {
+        this.content = content;
+    }
 
     public String getContent() {
         return content;
