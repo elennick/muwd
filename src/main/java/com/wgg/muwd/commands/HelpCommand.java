@@ -1,13 +1,11 @@
 package com.wgg.muwd.commands;
 
 import com.wgg.muwd.service.CommandRegistry;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
 public class HelpCommand extends Command {
 
     @Override
@@ -46,7 +44,9 @@ public class HelpCommand extends Command {
         String commaDelimitedStringOfAllCommands = StringUtils.collectionToDelimitedString(allCommands, ", ");
         response.append(commaDelimitedStringOfAllCommands);
 
-        response.append("</span>");
+        response.append("</span><br/>");
+
+        response.append("Type '<span style='color:green;'>help COMMAND</span>' for more detailed assistance with a specific command.");
 
         return response.toString();
     }

@@ -5,25 +5,28 @@ import com.wgg.muwd.service.CommandRegistry;
 import java.util.Arrays;
 import java.util.List;
 
-public class LookCommand extends Command {
+public class MoveCommand extends Command {
 
     @Override
     public String getCommandValue() {
-        return "look";
+        return "move";
     }
 
     @Override
     public List<String> getAliases() {
-        return Arrays.asList("l", "loo", "view");
+        return Arrays.asList("go","walk");
     }
 
     @Override
     public String getResponse(String[] input, CommandRegistry commandRegistry) {
-        return "you see stuff";
+        if(input.length <= 1) {
+            return "what direction???";
+        }
+        return "moving " + input[1] + "...";
     }
 
     @Override
     public String getHelpText() {
-        return "Displays a description of your current location";
+        return "Moves yourself in a direction (ie: 'move west', 'move up')";
     }
 }
