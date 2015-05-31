@@ -5,10 +5,8 @@ import org.reflections.Reflections;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Scope("singleton")
@@ -22,14 +20,20 @@ public class CommandRegistry {
 
     public void registerCommand(Command command) {
         registeredCommands.put(command.getCommandValue(), command);
+        for (String alias : command.getAliases()) {
+            registeredCommands.put(alias, command);
+        }
     }
 
     public Command getCommandByValue(String value) {
         return registeredCommands.get(value);
     }
 
-    public Collection<Command> getAllCommands() {
-        return registeredCommands.values();
+    public List<Command> getAllCommands() {
+        Collection<Command> allCommands = registeredCommands.values();
+        List<Command> allCommandsWithoutDuplicates =
+                allCommands.parallelStream().distinct().collect(Collectors.toList());
+        return allCommandsWithoutDuplicates;
     }
 
     private void loadCommands() {
