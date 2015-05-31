@@ -1,8 +1,8 @@
 package com.wgg.muwd.service;
 
 import com.wgg.muwd.commands.Command;
-import com.wgg.muwd.controller.model.CommandMessage;
-import com.wgg.muwd.controller.model.ResponseMessage;
+import com.wgg.muwd.controller.model.CommandWrapper;
+import com.wgg.muwd.controller.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -13,27 +13,24 @@ public class CommandHandler {
     @Autowired
     private CommandRegistry commandRegistry;
 
-    public ResponseMessage handleInput(CommandMessage commandMessage) {
-        String inputText = commandMessage.getText();
+    public ResponseWrapper handleCommandInput(CommandWrapper commandWrapper) {
+        String inputText = commandWrapper.getCommand();
+        String[] inputTextSplit = getInputTextSplitBySpaces(inputText);
 
-        String[] inputTextSplit = StringUtils.split(inputText, " ");
-
-        String commandValue;
-        if(null != inputTextSplit) {
-            commandValue = inputTextSplit[0];
-        } else {
-            commandValue = inputText;
-        }
-
+        String commandValue = inputTextSplit[0];
         Command command = commandRegistry.getCommandByValue(commandValue);
 
-        String response;
-        if(null == command) {
-            response = "Unrecognized command: '" + commandValue + "'";
-        } else {
-            response = command.getResponse(inputText, commandRegistry);
-        }
+        String unrecognizedCommandResponse = "Unrecognized command: '" + inputText + "'";
+        String response = (null == command) ? unrecognizedCommandResponse : command.getResponse(inputTextSplit, commandRegistry);
 
-        return new ResponseMessage(response);
+        return new ResponseWrapper(response);
+    }
+
+    private String[] getInputTextSplitBySpaces(String inputText) {
+        String[] inputTextSplit = StringUtils.split(inputText, " ");
+        if (null == inputTextSplit) {
+            inputTextSplit = new String[]{inputText};
+        }
+        return inputTextSplit;
     }
 }

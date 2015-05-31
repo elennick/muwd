@@ -1,7 +1,7 @@
 package com.wgg.muwd.controller;
 
-import com.wgg.muwd.controller.model.CommandMessage;
-import com.wgg.muwd.controller.model.ResponseMessage;
+import com.wgg.muwd.controller.model.CommandWrapper;
+import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.service.CommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -16,8 +16,8 @@ public class MessageController {
 
     @MessageMapping("/command")
     @SendTo("/topic/message")
-    public ResponseMessage message(CommandMessage commandMessage) throws Exception {
-        return commandHandler.handleInput(commandMessage);
+    public ResponseWrapper message(CommandWrapper commandWrapper) throws Exception {
+        return commandHandler.handleCommandInput(commandWrapper);
     }
 
 }

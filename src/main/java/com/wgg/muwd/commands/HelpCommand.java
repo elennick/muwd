@@ -15,13 +15,13 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String getResponse(String input, CommandRegistry commandRegistry) {
+    public String getResponse(String[] input, CommandRegistry commandRegistry) {
         StringBuilder response = new StringBuilder();
 
         response.append("List of available commands: ");
 
         Collection<Command> allCommands = commandRegistry.getAllCommands();
-        String commaDelimitedStringOfAllCommands = StringUtils.collectionToCommaDelimitedString(allCommands);
+        String commaDelimitedStringOfAllCommands = StringUtils.collectionToDelimitedString(allCommands, ", ");
         response.append(commaDelimitedStringOfAllCommands);
 
         return response.toString();

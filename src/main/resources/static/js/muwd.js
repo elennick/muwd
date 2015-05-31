@@ -1,8 +1,12 @@
 jQuery(function($, undefined) {
 
+    var MAX_COMMAND_LENGTH = 1024;
     var term = $('#termDemo').terminal(function(command, term) {
         if (command !== '') {
-            stompClient.send("/app/command", {}, JSON.stringify({'text': command}));
+            if(command.length > MAX_COMMAND_LENGTH) {
+                command = command.substring(0, MAX_COMMAND_LENGTH);
+            }
+            stompClient.send("/app/command", {}, JSON.stringify({'command': command}));
         } else {
             term.echo('');
         }

@@ -9,7 +9,7 @@ public class LookCommand extends Command {
     }
 
     @Override
-    public String getResponse(String input, CommandRegistry commandRegistry) {
+    public String getResponse(String[] input, CommandRegistry commandRegistry) {
         return "you see stuff";
     }
 }

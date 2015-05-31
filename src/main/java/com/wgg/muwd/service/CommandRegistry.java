@@ -17,14 +17,7 @@ public class CommandRegistry {
     private Map<String, Command> registeredCommands;
 
     public CommandRegistry() {
-        registeredCommands = new HashMap<>();
-
-        try {
-            initCommands();
-        } catch (IllegalAccessException | InstantiationException e) {
-            System.out.println("error initializing commands!");
-            e.printStackTrace();
-        }
+        loadCommands();
     }
 
     public void registerCommand(Command command) {
@@ -39,11 +32,36 @@ public class CommandRegistry {
         return registeredCommands.values();
     }
 
-    private void initCommands() throws IllegalAccessException, InstantiationException {
+    private void loadCommands() {
+        initCommandMap();
+        Set<Class<? extends Command>> allCommandClasses = getAllCommandClasses();
+        registerAllCommands(allCommandClasses);
+    }
+
+    private void initCommandMap() {
+        if(null == registeredCommands) {
+            registeredCommands = new HashMap<>();
+        } else {
+            registeredCommands.clear();
+        }
+    }
+
+    private Set<Class<? extends Command>> getAllCommandClasses() {
         Reflections reflections = new Reflections("com.wgg.muwd.commands");
         Set<Class<? extends Command>> sourcesInPackage = reflections.getSubTypesOf(Command.class);
-        for (Class<? extends Command> commandClass : sourcesInPackage) {
-            Command command = commandClass.newInstance();
+        return sourcesInPackage;
+    }
+
+    private void registerAllCommands(Set<Class<? extends Command>> allCommandClasses) {
+        for (Class<? extends Command> commandClass : allCommandClasses) {
+            Command command = null;
+            try {
+                command = commandClass.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                System.out.println("error initializing command -> " + commandClass.getName());
+                e.printStackTrace();
+            }
+
             registerCommand(command);
             System.out.println("registered command -> " + command.getCommandValue());
         }

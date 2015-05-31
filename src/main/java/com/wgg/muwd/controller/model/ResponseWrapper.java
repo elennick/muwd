@@ -1,9 +1,9 @@
 package com.wgg.muwd.controller.model;
 
-public class ResponseMessage {
+public class ResponseWrapper {
     private String content;
 
-    public ResponseMessage(String content) {
+    public ResponseWrapper(String content) {
         this.content = content;
     }
 
