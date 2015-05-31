@@ -11,7 +11,7 @@ jQuery(function($, undefined) {
             term.echo('');
         }
     }, {
-        greetings: 'Welcome to the Multi User Web Dungeon.',
+        greetings: 'Welcome to the Multi User Web Dungeon. Connecting to server...',
         name: 'MUWD',
         height: 600,
         width: 1024,
@@ -22,11 +22,10 @@ jQuery(function($, undefined) {
     var stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
-//        console.log('Connected: ' + frame);
+        term.echo('<span style="color: green;">Connected!</span><br/>', { raw: true });
         stompClient.subscribe('/topic/message', function(message) {
-//            console.log(JSON.parse(message.body).content);
             var content = JSON.parse(message.body).content;
-            term.echo(content);
+            term.echo(content, { raw: true });
         });
     });
 });

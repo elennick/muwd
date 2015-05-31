@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
         if (input.length > 1) {
             Command command = commandRegistry.getCommandByValue(input[1]);
             if (null != command) {
-                return command.getHelpText();
+                return generateHelpTextForCommand(command);
             }
         }
 
@@ -40,12 +40,27 @@ public class HelpCommand extends Command {
     private String getCommaDelimitedListOfAvailableCommands(CommandRegistry commandRegistry) {
         StringBuilder response = new StringBuilder();
 
-        response.append("List of available commands: ");
+        response.append("List of available commands: <span style='color:red;'>");
 
         List<Command> allCommands = commandRegistry.getAllCommands();
         String commaDelimitedStringOfAllCommands = StringUtils.collectionToDelimitedString(allCommands, ", ");
         response.append(commaDelimitedStringOfAllCommands);
 
+        response.append("</span>");
+
         return response.toString();
+    }
+
+    private String generateHelpTextForCommand(Command command) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        List<String> aliasesForThisCommand = command.getAliases();
+        String commaDelimitedListOfAliases = StringUtils.collectionToDelimitedString(aliasesForThisCommand, ", ");
+
+        stringBuilder.append("Help for command: '<span style='color:green;'>" + command.getCommandValue() + "</span>'<br/><br/>");
+        stringBuilder.append(command.getHelpText() + "<br/><br/>");
+        stringBuilder.append("Other aliases for this command: <span style='color:red;'>" + commaDelimitedListOfAliases + "</span><br/>");
+
+        return stringBuilder.toString();
     }
 }
