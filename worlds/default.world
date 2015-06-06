@@ -1,0 +1,16 @@
+{
+    "name": "Sample World",
+    "motd": "This is the sample world!",
+    "rooms": [
+        {
+            "id": 1,
+            "name": "Room 1",
+            "description": "You are in an empty room"
+        },{
+            "id": 2,
+            "name": "Room 2",
+            "description": "You are in a giant ball pit"
+
+        }
+    ]
+}
