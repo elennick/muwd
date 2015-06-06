@@ -1,6 +1,5 @@
 package com.wgg.muwd.service;
 
-import com.wgg.muwd.MuwdApplication;
 import com.wgg.muwd.commands.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
@@ -10,16 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MuwdApplication.class)
+@RunWith(MockitoJUnitRunner.class)
 public class CommandHandlerTest {
 
     @Mock
@@ -37,8 +33,6 @@ public class CommandHandlerTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-
         command = TestUtil.getTestCommand(commandValue, response);
         when(mockCommandRegistry.getCommandByValue(commandValue))
                 .thenReturn(command);
