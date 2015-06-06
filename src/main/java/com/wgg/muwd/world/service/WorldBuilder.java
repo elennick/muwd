@@ -15,8 +15,6 @@ import java.io.IOException;
 @Scope("singleton")
 public class WorldBuilder implements EnvironmentAware {
 
-    private Environment environment;
-
     private boolean worldLoaded = false;
 
     public static final String DEFAULT_WORLD_FILE = "worlds/default.world";
@@ -27,8 +25,6 @@ public class WorldBuilder implements EnvironmentAware {
     //ie: java -jar muwd.jar --world.file=your.world
     @Override
     public void setEnvironment(Environment environment) {
-        this.environment = environment;
-
         File worldFile = getWorldFileFromEnvironmentProperty(environment);
 
         if(!worldFile.exists()) {
@@ -53,11 +49,10 @@ public class WorldBuilder implements EnvironmentAware {
         try {
             World world =  mapper.readValue(worldFile, World.class);
             System.out.println("world = " + world);
+            worldLoaded = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        worldLoaded = true;
     }
 
     public boolean isWorldLoaded() {
