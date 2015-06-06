@@ -4,6 +4,7 @@ import com.wgg.muwd.MuwdApplication;
 import com.wgg.muwd.commands.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
+import com.wgg.muwd.util.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,23 +29,27 @@ public class CommandHandlerTest {
     @InjectMocks
     private CommandHandler commandHandler;
 
-    private MockCommand command;
+    private String commandValue = "test-command";
+
+    private String response = "test response";
+
+    private Command command;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        command = new MockCommand();
-        when(mockCommandRegistry.getCommandByValue("test-command"))
+        command = TestUtil.getTestCommand(commandValue, response);
+        when(mockCommandRegistry.getCommandByValue(commandValue))
                 .thenReturn(command);
     }
 
     @Test
     public void testValidCommand() {
-        CommandWrapper commandWrapper = new CommandWrapper("test-command");
+        CommandWrapper commandWrapper = new CommandWrapper(commandValue);
         ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(responseWrapper.getContent()).isEqualTo("test response");
+        assertThat(responseWrapper.getContent()).isEqualTo(response);
     }
 
     @Test
@@ -52,23 +57,8 @@ public class CommandHandlerTest {
         CommandWrapper commandWrapper = new CommandWrapper("invalid-test-command");
         ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(responseWrapper.getContent()).isNotEqualTo("test response").contains("Unrecognized command");
+        assertThat(responseWrapper.getContent()).isNotEqualTo(response).contains("Unrecognized command");
     }
 
-    private static class MockCommand extends Command {
-        @Override
-        public String getCommandValue() {
-            return "test-command";
-        }
 
-        @Override
-        public String getResponse(String[] input, CommandRegistry commandRegistry) {
-            return "test response";
-        }
-
-        @Override
-        public String getHelpText() {
-            return "test help text";
-        }
-    }
 }
