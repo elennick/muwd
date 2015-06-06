@@ -1,4 +1,4 @@
-package com.wgg.muwd.service;
+package com.wgg.muwd.commands.service;
 
 import com.wgg.muwd.commands.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
