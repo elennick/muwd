@@ -51,7 +51,7 @@ public class CommandRegistry {
     }
 
     private Set<Class<? extends Command>> getAllCommandClasses() {
-        Reflections reflections = new Reflections("com.wgg.muwd.commands");
+        Reflections reflections = new Reflections("com.wgg.muwd.command");
         Set<Class<? extends Command>> sourcesInPackage = reflections.getSubTypesOf(Command.class);
         return sourcesInPackage;
     }

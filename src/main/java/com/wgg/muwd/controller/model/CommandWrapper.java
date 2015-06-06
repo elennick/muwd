@@ -3,6 +3,10 @@ package com.wgg.muwd.controller.model;
 public class CommandWrapper {
     private String command;
 
+    public CommandWrapper() {
+
+    }
+
     public CommandWrapper(String command) {
         this.command = command;
     }
