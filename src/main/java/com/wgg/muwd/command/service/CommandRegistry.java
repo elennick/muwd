@@ -18,24 +18,6 @@ public class CommandRegistry {
         loadCommands();
     }
 
-    public void registerCommand(Command command) {
-        registeredCommands.put(command.getCommandValue(), command);
-        for (String alias : command.getAliases()) {
-            registeredCommands.put(alias, command);
-        }
-    }
-
-    public Command getCommandByValue(String value) {
-        return registeredCommands.get(value);
-    }
-
-    public List<Command> getAllCommands() {
-        Collection<Command> allCommands = registeredCommands.values();
-        List<Command> allCommandsWithoutDuplicates =
-                allCommands.parallelStream().distinct().collect(Collectors.toList());
-        return allCommandsWithoutDuplicates;
-    }
-
     private void loadCommands() {
         initCommandMap();
         Set<Class<? extends Command>> allCommandClasses = getAllCommandClasses();
@@ -69,5 +51,23 @@ public class CommandRegistry {
             registerCommand(command);
             System.out.println("registered command -> " + command.getCommandValue());
         }
+    }
+
+    public void registerCommand(Command command) {
+        registeredCommands.put(command.getCommandValue(), command);
+        for (String alias : command.getAliases()) {
+            registeredCommands.put(alias, command);
+        }
+    }
+
+    public Command getCommandByValue(String value) {
+        return registeredCommands.get(value);
+    }
+
+    public List<Command> getAllCommands() {
+        Collection<Command> allCommands = registeredCommands.values();
+        List<Command> allCommandsWithoutDuplicates =
+                allCommands.parallelStream().distinct().collect(Collectors.toList());
+        return allCommandsWithoutDuplicates;
     }
 }
