@@ -1,6 +1,6 @@
-package com.wgg.muwd.commands.service;
+package com.wgg.muwd.command.service;
 
-import com.wgg.muwd.commands.Command;
+import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

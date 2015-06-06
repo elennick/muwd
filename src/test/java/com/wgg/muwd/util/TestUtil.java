@@ -1,7 +1,7 @@
 package com.wgg.muwd.util;
 
-import com.wgg.muwd.commands.Command;
-import com.wgg.muwd.commands.service.CommandRegistry;
+import com.wgg.muwd.command.Command;
+import com.wgg.muwd.command.service.CommandRegistry;
 
 public final class TestUtil {
 

@@ -1,6 +1,6 @@
-package com.wgg.muwd.commands;
+package com.wgg.muwd.command;
 
-import com.wgg.muwd.commands.service.CommandRegistry;
+import com.wgg.muwd.command.service.CommandRegistry;
 
 import java.util.Collections;
 import java.util.List;

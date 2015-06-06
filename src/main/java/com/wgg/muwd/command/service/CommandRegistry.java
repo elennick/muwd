@@ -1,6 +1,6 @@
-package com.wgg.muwd.commands.service;
+package com.wgg.muwd.command.service;
 
-import com.wgg.muwd.commands.Command;
+import com.wgg.muwd.command.Command;
 import org.reflections.Reflections;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
