@@ -17,13 +17,11 @@ public class WorldBuilder implements EnvironmentAware {
 
     private Environment environment;
 
-    private boolean worldLoaded;
+    private boolean worldLoaded = false;
 
-    private final String defaultWorldFile = "worlds/default.world";
+    public static final String DEFAULT_WORLD_FILE = "worlds/default.world";
 
-    public WorldBuilder() {
-        worldLoaded = false;
-    }
+    public static final String WORLD_FILE_PARAM_KEY = "world.file";
 
     //can specify param to load a specific world file when the server starts
     //ie: java -jar muwd.jar --world.file=your.world
@@ -31,21 +29,24 @@ public class WorldBuilder implements EnvironmentAware {
     public void setEnvironment(Environment environment) {
         this.environment = environment;
 
-        String worldFileLocation = environment.getProperty("world.file");
-        if (StringUtils.isEmpty(worldFileLocation)) {
-            worldFileLocation = defaultWorldFile;
+        File worldFile = getWorldFileFromEnvironmentProperty(environment);
+
+        if(!worldFile.exists()) {
+            throw new IllegalArgumentException("Could not load world file! " + worldFile.getAbsolutePath());
         }
 
-        loadWorld(worldFileLocation);
-
+        loadWorld(worldFile);
     }
 
-    private void loadWorld(String worldFileLocation) {
-        File worldFile = new File(worldFileLocation);
-        if(!worldFile.exists()) {
-            throw new RuntimeException("Could not load world file! " + worldFile.getAbsolutePath());
+    private File getWorldFileFromEnvironmentProperty(Environment environment) {
+        String worldFileLocation = environment.getProperty(WORLD_FILE_PARAM_KEY);
+        if (StringUtils.isEmpty(worldFileLocation)) {
+            worldFileLocation = DEFAULT_WORLD_FILE;
         }
+        return new File(worldFileLocation);
+    }
 
+    private void loadWorld(File worldFile) {
         System.out.println("Loading file: " + worldFile.getAbsolutePath());
 
         ObjectMapper mapper = new ObjectMapper();
@@ -57,5 +58,9 @@ public class WorldBuilder implements EnvironmentAware {
         }
 
         worldLoaded = true;
+    }
+
+    public boolean isWorldLoaded() {
+        return worldLoaded;
     }
 }
