@@ -15,7 +15,7 @@ public class CommandHandler {
     @Autowired
     private CommandRegistry commandRegistry;
 
-    public ResponseWrapper handleCommandInput(CommandWrapper commandWrapper) {
+    public String handleCommandInput(CommandWrapper commandWrapper) {
         String inputText = commandWrapper.getCommand();
         String[] inputTextSplit = getInputTextSplitBySpaces(inputText);
 
@@ -30,7 +30,7 @@ public class CommandHandler {
             response = "Unrecognized command: '" + inputText + "'";
         }
 
-        return new ResponseWrapper(response);
+        return response;
     }
 
     private String[] getInputTextSplitBySpaces(String inputText) {

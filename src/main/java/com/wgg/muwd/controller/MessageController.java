@@ -17,7 +17,9 @@ public class MessageController {
     @MessageMapping("/command")
     @SendTo("/topic/message")
     public ResponseWrapper message(CommandWrapper commandWrapper) throws Exception {
-        return commandHandler.handleCommandInput(commandWrapper);
+        String response = commandHandler.handleCommandInput(commandWrapper);
+        return new ResponseWrapper(response);
+
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,13 +32,13 @@ public class CommandHandlerTest {
 
     private String invalidCommandValue = "invalid-test-command";
 
-    private String response = "test response";
+    private String mockResponse = "test response";
 
     private Command command;
 
     @Before
     public void setup() {
-        command = TestUtil.getTestCommand(validCommandValue, response);
+        command = TestUtil.getTestCommand(validCommandValue, mockResponse);
         Optional<Command> commandOptional = Optional.of(command);
 
         when(mockCommandRegistry.getCommandByValue(validCommandValue))
@@ -50,17 +51,17 @@ public class CommandHandlerTest {
     @Test
     public void testValidCommand() {
         CommandWrapper commandWrapper = new CommandWrapper(validCommandValue);
-        ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
+        String actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(responseWrapper.getContent()).isEqualTo(response);
+        assertThat(actualResponse).isEqualTo(mockResponse);
     }
 
     @Test
     public void testInvalidCommand() {
         CommandWrapper commandWrapper = new CommandWrapper(invalidCommandValue);
-        ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
+        String actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(responseWrapper.getContent()).isNotEqualTo(response).contains("Unrecognized command");
+        assertThat(actualResponse).isNotEqualTo(mockResponse).contains("Unrecognized command");
     }
 
 
