@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class HelpCommand extends Command {
 
@@ -21,9 +22,9 @@ public class HelpCommand extends Command {
     @Override
     public String getResponse(String[] input, CommandRegistry commandRegistry) {
         if (input.length > 1) {
-            Command command = commandRegistry.getCommandByValue(input[1]);
-            if (null != command) {
-                return generateHelpTextForCommand(command);
+            Optional<Command> commandOptional = commandRegistry.getCommandByValue(input[1]);
+            if (commandOptional.isPresent()) {
+                return generateHelpTextForCommand(commandOptional.get());
             }
         }
 

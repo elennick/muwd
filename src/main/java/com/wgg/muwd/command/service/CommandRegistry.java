@@ -60,8 +60,9 @@ public class CommandRegistry {
         }
     }
 
-    public Command getCommandByValue(String value) {
-        return registeredCommands.get(value);
+    public Optional<Command> getCommandByValue(String value) {
+        Command command = registeredCommands.get(value);
+        return Optional.ofNullable(command);
     }
 
     public List<Command> getAllCommands() {

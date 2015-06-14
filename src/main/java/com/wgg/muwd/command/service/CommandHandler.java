@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Optional;
+
 @Service
 public class CommandHandler {
 
@@ -18,10 +20,15 @@ public class CommandHandler {
         String[] inputTextSplit = getInputTextSplitBySpaces(inputText);
 
         String commandValue = inputTextSplit[0];
-        Command command = commandRegistry.getCommandByValue(commandValue);
+        Optional<Command> commandOptional = commandRegistry.getCommandByValue(commandValue);
 
-        String unrecognizedCommandResponse = "Unrecognized command: '" + inputText + "'";
-        String response = (null == command) ? unrecognizedCommandResponse : command.getResponse(inputTextSplit, commandRegistry);
+        String response;
+        if(commandOptional.isPresent()) {
+            Command command = commandOptional.get();
+            response = command.getResponse(inputTextSplit, commandRegistry);
+        } else {
+            response = "Unrecognized command: '" + inputText + "'";
+        }
 
         return new ResponseWrapper(response);
     }

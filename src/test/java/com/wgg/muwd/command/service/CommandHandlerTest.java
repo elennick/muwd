@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -25,7 +27,9 @@ public class CommandHandlerTest {
     @InjectMocks
     private CommandHandler commandHandler;
 
-    private String commandValue = "test-command";
+    private String validCommandValue = "test-command";
+
+    private String invalidCommandValue = "invalid-test-command";
 
     private String response = "test response";
 
@@ -33,14 +37,19 @@ public class CommandHandlerTest {
 
     @Before
     public void setup() {
-        command = TestUtil.getTestCommand(commandValue, response);
-        when(mockCommandRegistry.getCommandByValue(commandValue))
-                .thenReturn(command);
+        command = TestUtil.getTestCommand(validCommandValue, response);
+        Optional<Command> commandOptional = Optional.of(command);
+
+        when(mockCommandRegistry.getCommandByValue(validCommandValue))
+                .thenReturn(commandOptional);
+
+        when(mockCommandRegistry.getCommandByValue(invalidCommandValue))
+                .thenReturn(Optional.empty());
     }
 
     @Test
     public void testValidCommand() {
-        CommandWrapper commandWrapper = new CommandWrapper(commandValue);
+        CommandWrapper commandWrapper = new CommandWrapper(validCommandValue);
         ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
 
         assertThat(responseWrapper.getContent()).isEqualTo(response);
@@ -48,7 +57,7 @@ public class CommandHandlerTest {
 
     @Test
     public void testInvalidCommand() {
-        CommandWrapper commandWrapper = new CommandWrapper("invalid-test-command");
+        CommandWrapper commandWrapper = new CommandWrapper(invalidCommandValue);
         ResponseWrapper responseWrapper = commandHandler.handleCommandInput(commandWrapper);
 
         assertThat(responseWrapper.getContent()).isNotEqualTo(response).contains("Unrecognized command");
