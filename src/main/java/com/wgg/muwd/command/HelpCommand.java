@@ -1,6 +1,7 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
+import com.wgg.muwd.websocket.ClientRegistry;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, CommandRegistry commandRegistry) {
+    public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
         if (input.length > 1) {
             Optional<Command> commandOptional = commandRegistry.getCommandByValue(input[1]);
             if (commandOptional.isPresent()) {

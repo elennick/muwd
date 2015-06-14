@@ -1,6 +1,7 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
+import com.wgg.muwd.websocket.ClientRegistry;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ public class MoveCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, CommandRegistry commandRegistry) {
+    public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
         if(input.length <= 1) {
             return "what direction???";
         }

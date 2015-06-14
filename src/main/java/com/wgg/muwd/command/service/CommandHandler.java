@@ -3,6 +3,7 @@ package com.wgg.muwd.command.service;
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
+import com.wgg.muwd.websocket.ClientRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,9 @@ public class CommandHandler {
     @Autowired
     private CommandRegistry commandRegistry;
 
+    @Autowired
+    private ClientRegistry clientRegistry;
+
     public String handleCommandInput(CommandWrapper commandWrapper) {
         String inputText = commandWrapper.getCommand();
         String[] inputTextSplit = getInputTextSplitBySpaces(inputText);
@@ -25,7 +29,7 @@ public class CommandHandler {
         String response;
         if(commandOptional.isPresent()) {
             Command command = commandOptional.get();
-            response = command.getResponse(inputTextSplit, commandRegistry);
+            response = command.getResponse(inputTextSplit, commandRegistry, clientRegistry);
         } else {
             response = "Unrecognized command: '" + inputText + "'";
         }

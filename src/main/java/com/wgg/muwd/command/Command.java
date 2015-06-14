@@ -1,6 +1,7 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
+import com.wgg.muwd.websocket.ClientRegistry;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ abstract public class Command {
         return Collections.emptyList();
     }
 
-    abstract public String getResponse(String[] input, CommandRegistry commandRegistry);
+    abstract public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry);
 
     abstract public String getHelpText();
 

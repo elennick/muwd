@@ -1,30 +1,33 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
+import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.websocket.ClientRegistry;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class LookCommand extends Command {
+public class WhoCommand extends Command {
 
     @Override
     public String getCommandValue() {
-        return "look";
+        return "who";
     }
 
     @Override
     public List<String> getAliases() {
-        return Arrays.asList("l", "loo", "view");
+        return Arrays.asList("online","users");
     }
 
     @Override
     public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
-        return "you see stuff";
+        List<Client> clients = clientRegistry.getClients();
+        return StringUtils.collectionToDelimitedString(clients, ", ");
     }
 
     @Override
     public String getHelpText() {
-        return "Displays a description of your current location";
+        return "See who is online.";
     }
 }

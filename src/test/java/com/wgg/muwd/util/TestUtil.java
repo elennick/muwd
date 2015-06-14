@@ -2,6 +2,7 @@ package com.wgg.muwd.util;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.command.service.CommandRegistry;
+import com.wgg.muwd.websocket.ClientRegistry;
 
 public final class TestUtil {
 
@@ -30,7 +31,7 @@ public final class TestUtil {
         }
 
         @Override
-        public String getResponse(String[] input, CommandRegistry commandRegistry) {
+        public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
             return response;
         }
 
