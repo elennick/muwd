@@ -19,7 +19,6 @@ public class MessageController {
     public ResponseWrapper message(CommandWrapper commandWrapper) throws Exception {
         String response = commandHandler.handleCommandInput(commandWrapper);
         return new ResponseWrapper(response);
-
     }
 
 }

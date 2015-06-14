@@ -1,4 +1,4 @@
-package com.wgg.muwd;
+package com.wgg.muwd.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -19,7 +19,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/command").withSockJS();
-        registry.addEndpoint("/login").withSockJS();
     }
 
 }
