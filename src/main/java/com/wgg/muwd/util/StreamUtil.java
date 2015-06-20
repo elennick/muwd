@@ -7,6 +7,7 @@ public final class StreamUtil {
 
     private StreamUtil() {}
 
+    //taken from: http://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
     public static <T> Collector<T, ?, T> singletonCollector() {
         return Collectors.collectingAndThen(
                 Collectors.toList(),
