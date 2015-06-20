@@ -6,6 +6,7 @@ import com.wgg.muwd.command.service.CommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -15,7 +16,7 @@ public class MessageController {
     private CommandHandler commandHandler;
 
     @MessageMapping("/command")
-    @SendTo("/topic/message")
+    @SendToUser("/topic/message")
     public ResponseWrapper message(CommandWrapper commandWrapper) throws Exception {
         String response = commandHandler.handleCommandInput(commandWrapper);
         return new ResponseWrapper(response);

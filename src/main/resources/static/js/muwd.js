@@ -26,7 +26,14 @@ jQuery(function($, undefined) {
     stompClient.connect({}, function(frame) {
         term.echo('<span style="color: green;">Connected!</span><br/>', { raw: true });
 
+        //global topic
         stompClient.subscribe('/topic/message', function(message) {
+            var content = getResponseContent(message);
+            term.echo(content, { raw: true });
+        });
+
+        //user specific topic
+        stompClient.subscribe('/user/topic/message', function(message){
             var content = getResponseContent(message);
             term.echo(content, { raw: true });
         });
