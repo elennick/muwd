@@ -51,7 +51,6 @@ public class WorldBuilder implements EnvironmentAware {
         ObjectMapper mapper = new ObjectMapper();
         try {
             world =  mapper.readValue(worldFile, World.class);
-            System.out.println("world = " + world);
         } catch (IOException e) {
             e.printStackTrace();
         }

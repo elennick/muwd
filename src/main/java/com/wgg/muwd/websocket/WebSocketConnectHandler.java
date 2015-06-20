@@ -1,6 +1,6 @@
 package com.wgg.muwd.websocket;
 
-import com.wgg.muwd.NamePicker;
+import com.wgg.muwd.util.NamePicker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.Message;

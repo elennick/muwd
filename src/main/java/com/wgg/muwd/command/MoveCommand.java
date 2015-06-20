@@ -24,7 +24,7 @@ public class MoveCommand extends Command {
                               CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
 
         if(input.length <= 1) {
-            return "what direction???";
+            return "What direction?";
         }
         return "moving " + input[1] + "...";
     }

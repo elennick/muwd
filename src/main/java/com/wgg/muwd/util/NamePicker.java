@@ -1,4 +1,4 @@
-package com.wgg.muwd;
+package com.wgg.muwd.util;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;

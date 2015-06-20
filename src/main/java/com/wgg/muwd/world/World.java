@@ -1,6 +1,9 @@
 package com.wgg.muwd.world;
 
+import com.wgg.muwd.util.StreamUtil;
+
 import java.util.List;
+import java.util.Optional;
 
 public class World {
 
@@ -39,6 +42,20 @@ public class World {
 
     public void setEnabledCommands(List<String> enabledCommands) {
         this.enabledCommands = enabledCommands;
+    }
+
+    public Optional<Room> getRoomById(Long id) {
+        Room room = null;
+
+        try {
+            room = rooms.stream().filter(r -> r.getId().equals(id)).collect(StreamUtil.singletonCollector());
+        } catch (IllegalStateException ignored) {}
+
+        if (null == room) {
+            return Optional.empty();
+        } else {
+            return Optional.of(room);
+        }
     }
 
     @Override
