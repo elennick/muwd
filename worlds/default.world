@@ -1,6 +1,7 @@
 {
     "name": "Sample World",
     "motd": "This is the sample world!",
+    "enabledCommands": [ "help" ],
     "rooms": [
         {
             "id": 1,

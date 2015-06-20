@@ -10,12 +10,15 @@ import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Scope("singleton")
 public class WorldBuilder implements EnvironmentAware {
 
-    private boolean worldLoaded = false;
+    private World world;
 
     public static final String DEFAULT_WORLD_FILE = "worlds/default.world";
 
@@ -47,15 +50,32 @@ public class WorldBuilder implements EnvironmentAware {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            World world =  mapper.readValue(worldFile, World.class);
+            world =  mapper.readValue(worldFile, World.class);
             System.out.println("world = " + world);
-            worldLoaded = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public List<String> getListOfEnabledCommands() {
+       List<String> enabledCommands = new ArrayList<>();
+
+        if(null != world) {
+            enabledCommands = world.getEnabledCommands();
+        }
+
+        return enabledCommands;
+    }
+
+    public Optional<World> getCurrentlyLoadedWorld() {
+        if(null == world) {
+            return Optional.empty();
+        } else {
+            return Optional.of(world);
+        }
+    }
+
     public boolean isWorldLoaded() {
-        return worldLoaded;
+        return getCurrentlyLoadedWorld().isPresent();
     }
 }

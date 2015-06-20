@@ -4,6 +4,8 @@ import com.wgg.muwd.command.Command;
 import com.wgg.muwd.command.service.CommandRegistry;
 import com.wgg.muwd.websocket.ClientRegistry;
 
+import java.util.List;
+
 public final class TestUtil {
 
     private TestUtil() {
@@ -40,4 +42,5 @@ public final class TestUtil {
             return "test help text";
         }
     }
+
 }

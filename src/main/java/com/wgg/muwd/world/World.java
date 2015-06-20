@@ -7,6 +7,7 @@ public class World {
     private String name;
     private String motd;
     private List<Room> rooms;
+    private List<String> enabledCommands;
 
     public String getName() {
         return name;
@@ -30,6 +31,14 @@ public class World {
 
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public List<String> getEnabledCommands() {
+        return enabledCommands;
+    }
+
+    public void setEnabledCommands(List<String> enabledCommands) {
+        this.enabledCommands = enabledCommands;
     }
 
     @Override

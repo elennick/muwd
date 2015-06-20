@@ -4,6 +4,7 @@ import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.util.TestUtil;
+import com.wgg.muwd.world.service.WorldBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,6 +25,9 @@ public class CommandHandlerTest {
 
     @Mock
     private CommandRegistry mockCommandRegistry;
+
+    @Mock
+    private WorldBuilder mockWorldBuilder;
 
     @Autowired
     @InjectMocks
@@ -46,6 +51,9 @@ public class CommandHandlerTest {
 
         when(mockCommandRegistry.getCommandByValue(invalidCommandValue))
                 .thenReturn(Optional.empty());
+
+        when(mockWorldBuilder.getListOfEnabledCommands())
+                .thenReturn(Arrays.asList(validCommandValue));
     }
 
     @Test
