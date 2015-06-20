@@ -4,6 +4,7 @@ import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.util.TestUtil;
+import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,9 @@ public class CommandHandlerTest {
 
     @Before
     public void setup() {
+        World world = new World();
+        world.setName("test world");
+
         command = TestUtil.getTestCommand(validCommandValue, mockResponse);
         Optional<Command> commandOptional = Optional.of(command);
 
@@ -54,6 +58,9 @@ public class CommandHandlerTest {
 
         when(mockWorldBuilder.getListOfEnabledCommands())
                 .thenReturn(Arrays.asList(validCommandValue));
+
+        when(mockWorldBuilder.getCurrentlyLoadedWorld())
+                .thenReturn(Optional.of(world));
     }
 
     @Test

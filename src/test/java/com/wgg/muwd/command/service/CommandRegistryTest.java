@@ -2,7 +2,6 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.util.TestUtil;
-import com.wgg.muwd.websocket.ClientRegistry;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldBuilder;
 import org.junit.Before;

@@ -1,7 +1,7 @@
 {
     "name": "Sample World",
     "motd": "This is the sample world!",
-    "enabledCommands": [ "help" ],
+    "enabledCommands": [ "help", "look", "move", "who", "broadcast" ],
     "rooms": [
         {
             "id": 1,

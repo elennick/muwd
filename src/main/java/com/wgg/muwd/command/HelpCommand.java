@@ -2,6 +2,7 @@ package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
 import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.world.World;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -21,15 +22,24 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
+    public String getResponse(String[] input,
+                              World world,
+                              CommandRegistry commandRegistry,
+                              ClientRegistry clientRegistry) {
+
         if (input.length > 1) {
-            Optional<Command> commandOptional = commandRegistry.getCommandByValue(input[1]);
-            if (commandOptional.isPresent()) {
-                return generateHelpTextForCommand(commandOptional.get());
+            boolean isValidCommandForWorld = commandRegistry.isCommandValidForWorld(input[1], world);
+            if(isValidCommandForWorld) {
+                return getResponseText(commandRegistry, input[1]);
             }
         }
 
-        return getCommaDelimitedListOfAvailableCommands(commandRegistry);
+        return getCommaDelimitedListOfAvailableCommands(commandRegistry, world);
+    }
+
+    private String getResponseText(CommandRegistry commandRegistry, String command) {
+        Optional<Command> commandOptional = commandRegistry.getCommandByValue(command);
+        return generateHelpTextForCommand(commandOptional.get());
     }
 
     @Override
@@ -37,12 +47,12 @@ public class HelpCommand extends Command {
         return "Provides a list of commands as well as more specific help information.";
     }
 
-    private String getCommaDelimitedListOfAvailableCommands(CommandRegistry commandRegistry) {
+    private String getCommaDelimitedListOfAvailableCommands(CommandRegistry commandRegistry, World world) {
         StringBuilder response = new StringBuilder();
 
         response.append("List of available commands: <span style='color:red;'>");
 
-        List<Command> allCommands = commandRegistry.getAllCommands();
+        List<Command> allCommands = commandRegistry.getAllCommandsForWorld(world);
         String commaDelimitedStringOfAllCommands = StringUtils.collectionToDelimitedString(allCommands, ", ");
         response.append(commaDelimitedStringOfAllCommands);
 

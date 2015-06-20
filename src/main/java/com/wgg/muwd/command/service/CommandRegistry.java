@@ -83,6 +83,15 @@ public class CommandRegistry {
                 .collect(Collectors.toList());
     }
 
+    public boolean isCommandValidForWorld(String command, World world) {
+        List<Command> allCommandsForWorld = getAllCommandsForWorld(world);
+        List<String> allCommandValuesForWorld = allCommandsForWorld.stream()
+                .map(Object::toString)
+                .collect(Collectors.toList());
+
+        return allCommandValuesForWorld.contains(command);
+    }
+
     public List<String> getAllCommandValues() {
         return registeredCommands.values().stream().map(Object::toString).collect(Collectors.toList());
     }

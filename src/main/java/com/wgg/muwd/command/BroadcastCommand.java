@@ -7,27 +7,27 @@ import com.wgg.muwd.world.World;
 import java.util.Arrays;
 import java.util.List;
 
-public class LookCommand extends Command {
+public class BroadcastCommand extends Command {
 
     @Override
     public String getCommandValue() {
-        return "look";
+        return "broadcast";
     }
 
     @Override
     public List<String> getAliases() {
-        return Arrays.asList("l", "loo", "view");
+        return Arrays.asList("yell");
     }
 
     @Override
     public String getResponse(String[] input, World world,
                               CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
 
-        return "you see stuff";
+        return "This command isn't quite implemented yet!"; //TODO implement this
     }
 
     @Override
     public String getHelpText() {
-        return "Displays a description of your current location";
+        return "Broadcasts a message to everyone in the world.";
     }
 }

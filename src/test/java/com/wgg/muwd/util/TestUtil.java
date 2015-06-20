@@ -3,6 +3,7 @@ package com.wgg.muwd.util;
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.command.service.CommandRegistry;
 import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.world.World;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public final class TestUtil {
         }
 
         @Override
-        public String getResponse(String[] input, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
+        public String getResponse(String[] input, World world, CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
             return response;
         }
 
