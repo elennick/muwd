@@ -1,5 +1,6 @@
 package com.wgg.muwd.websocket;
 
+import com.wgg.muwd.NamePicker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.Message;
@@ -13,13 +14,17 @@ public class WebSocketConnectHandler implements ApplicationListener<SessionConne
     @Autowired
     private ClientRegistry clientRegistry;
 
+    @Autowired
+    private NamePicker namePicker;
+
     @Override
     public void onApplicationEvent(SessionConnectedEvent sessionConnectedEvent) {
         Message<byte[]> message = sessionConnectedEvent.getMessage();
         MessageHeaders headers = message.getHeaders();
         String simpSessionId = (String)headers.get("simpSessionId");
 
-        Client client = new Client(simpSessionId, 1L);
+        String randomName = namePicker.getRandomName();
+        Client client = new Client(simpSessionId, randomName, 1L);
         clientRegistry.put(simpSessionId, client);
         System.out.println("added client -> " + simpSessionId);
     }

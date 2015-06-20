@@ -24,22 +24,29 @@ jQuery(function($, undefined) {
     var stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
-        term.echo('<span style="color: green;">Connected!</span><br/>', { raw: true });
+        echoRaw('<span style="color: green;">Connected!</span><br/>');
 
         //global topic
         stompClient.subscribe('/topic/message', function(message) {
-            var content = getResponseContent(message);
-            term.echo(content, { raw: true });
+            echoContent(message);
         });
 
         //user specific topic
         stompClient.subscribe('/user/topic/message', function(message){
-            var content = getResponseContent(message);
-            term.echo(content, { raw: true });
+            echoContent(message);
         });
     });
 
     var getResponseContent = function(message) {
         return JSON.parse(message.body).content;
+    };
+
+    var echoContent = function(message) {
+        var content = getResponseContent(message);
+        echoRaw(content);
+    };
+
+    var echoRaw = function(message) {
+        term.echo(message, { raw: true });
     }
 });
