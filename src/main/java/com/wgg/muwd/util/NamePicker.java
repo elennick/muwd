@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-@Scope("singleton")
 public class NamePicker {
 
     private Random random = new Random();
