@@ -3,7 +3,6 @@ package com.wgg.muwd.world.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wgg.muwd.world.World;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Scope("singleton")
 public class WorldBuilder implements EnvironmentAware {
 
     public static final String DEFAULT_WORLD_FILE = "worlds/default.world";

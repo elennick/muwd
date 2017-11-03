@@ -1,7 +1,6 @@
 package com.wgg.muwd.websocket;
 
 import com.google.common.collect.Lists;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-@Scope("singleton")
 public class ClientRegistry {
 
     Map<String, Client> registry;
