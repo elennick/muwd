@@ -18,11 +18,9 @@ import java.util.Optional;
 @Scope("singleton")
 public class WorldBuilder implements EnvironmentAware {
 
-    private World world;
-
     public static final String DEFAULT_WORLD_FILE = "worlds/default.world";
-
     public static final String WORLD_FILE_PARAM_KEY = "world.file";
+    private World world;
 
     //can specify param to load a specific world file when the server starts
     //ie: java -jar muwd.jar --world.file=your.world
@@ -30,7 +28,7 @@ public class WorldBuilder implements EnvironmentAware {
     public void setEnvironment(Environment environment) {
         File worldFile = getWorldFileFromEnvironmentProperty(environment);
 
-        if(!worldFile.exists()) {
+        if (!worldFile.exists()) {
             throw new IllegalArgumentException("Could not load world file! " + worldFile.getAbsolutePath());
         }
 
@@ -50,16 +48,16 @@ public class WorldBuilder implements EnvironmentAware {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            world =  mapper.readValue(worldFile, World.class);
+            world = mapper.readValue(worldFile, World.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public List<String> getListOfEnabledCommands() {
-       List<String> enabledCommands = new ArrayList<>();
+        List<String> enabledCommands = new ArrayList<>();
 
-        if(null != world) {
+        if (null != world) {
             enabledCommands = world.getEnabledCommands();
         }
 
@@ -67,7 +65,7 @@ public class WorldBuilder implements EnvironmentAware {
     }
 
     public Optional<World> getCurrentlyLoadedWorld() {
-        if(null == world) {
+        if (null == world) {
             return Optional.empty();
         } else {
             return Optional.of(world);

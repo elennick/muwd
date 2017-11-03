@@ -1,9 +1,9 @@
 ${AnsiColor.BRIGHT_BLUE}  _   .-')                 (`\ .-') /` _ .-') _
 ${AnsiColor.BRIGHT_BLUE} ( '.( OO )_                `.( OO ),'( (  OO) )
-${AnsiColor.BRIGHT_BLUE} ,--.   ,--.),--. ,--.  ,--./  .--.   \     .'_
-${AnsiColor.BRIGHT_BLUE} |   `.'   | |  | |  |  |      |  |   ,`'--..._)
-${AnsiColor.BRIGHT_BLUE} |         | |  | | .-')|  |   |  |,  |  |  \  '
-${AnsiColor.BRIGHT_BLUE} |  |'.'|  | |  |_|( OO )  |.'.|  |_) |  |   ' |
-${AnsiColor.BRIGHT_BLUE} |  |   |  | |  | | `-' /         |   |  |   / :
-${AnsiColor.BRIGHT_BLUE} |  |   |  |('  '-'(_.-'|   ,'.   |   |  '--'  /
-${AnsiColor.BRIGHT_BLUE} `--'   `--'  `-----'   '--'   '--'   `-------'
+${AnsiColor.GREEN} ,--.   ,--.${AnsiColor.BRIGHT_BLUE})${AnsiColor.GREEN},--. ,--.  ,--.${AnsiColor.BRIGHT_BLUE}/  ${AnsiColor.GREEN}.--. ${AnsiColor.BRIGHT_BLUE}  \     .'_
+${AnsiColor.GREEN} |   `.'   | |  | |  |  |  |   |  |   ,${AnsiColor.BRIGHT_BLUE}`'--..._)
+${AnsiColor.GREEN} |         | |  | |${AnsiColor.BRIGHT_BLUE} .-')${AnsiColor.GREEN}|  |   |  |${AnsiColor.BRIGHT_BLUE},  ${AnsiColor.GREEN}|  |  \  '
+${AnsiColor.GREEN} |  |'.'|  | |  |_|${AnsiColor.BRIGHT_BLUE}( OO )${AnsiColor.GREEN}  |.'.|  |${AnsiColor.BRIGHT_BLUE}_) ${AnsiColor.GREEN}|  |   ' |
+${AnsiColor.GREEN} |  |   |  | |  | |${AnsiColor.BRIGHT_BLUE} `-' /${AnsiColor.GREEN}         |   |  |   / :
+${AnsiColor.GREEN} |  |   |  |('  '-'${AnsiColor.BRIGHT_BLUE}(_.-'${AnsiColor.GREEN}|   ,'.   |   |  '--'  /
+${AnsiColor.GREEN} `--'   `--'  `-----'   '--'   '--'   `-------'

@@ -49,7 +49,8 @@ public class World {
 
         try {
             room = rooms.stream().filter(r -> r.getId().equals(id)).collect(StreamUtil.singletonCollector());
-        } catch (IllegalStateException ignored) {}
+        } catch (IllegalStateException ignored) {
+        }
 
         if (null == room) {
             return Optional.empty();

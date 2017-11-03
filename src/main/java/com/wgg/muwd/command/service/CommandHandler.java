@@ -2,7 +2,6 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
-import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.websocket.ClientRegistry;
 import com.wgg.muwd.world.service.WorldBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Scope("singleton")
 public class CommandHandler {
 
     private CommandRegistry commandRegistry;
@@ -38,7 +36,7 @@ public class CommandHandler {
         Optional<Command> commandOptional = commandRegistry.getCommandByValue(commandValue);
 
         String response;
-        if(isValidCommand(commandOptional)) {
+        if (isValidCommand(commandOptional)) {
             Command command = commandOptional.get();
             response = command.getResponse(
                     inputTextSplit,

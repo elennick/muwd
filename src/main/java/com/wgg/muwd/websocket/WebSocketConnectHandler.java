@@ -21,7 +21,7 @@ public class WebSocketConnectHandler implements ApplicationListener<SessionConne
     public void onApplicationEvent(SessionConnectedEvent sessionConnectedEvent) {
         Message<byte[]> message = sessionConnectedEvent.getMessage();
         MessageHeaders headers = message.getHeaders();
-        String simpSessionId = (String)headers.get("simpSessionId");
+        String simpSessionId = (String) headers.get("simpSessionId");
 
         String randomName = namePicker.getRandomName();
         Client client = new Client(simpSessionId, randomName, 1L);

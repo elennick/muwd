@@ -16,14 +16,14 @@ public class MoveCommand extends Command {
 
     @Override
     public List<String> getAliases() {
-        return Arrays.asList("go","walk");
+        return Arrays.asList("go", "walk");
     }
 
     @Override
     public String getResponse(String[] input, World world,
                               CommandRegistry commandRegistry, ClientRegistry clientRegistry) {
 
-        if(input.length <= 1) {
+        if (input.length <= 1) {
             return "What direction?";
         }
         return "moving " + input[1] + "...";

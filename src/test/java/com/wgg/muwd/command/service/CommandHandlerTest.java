@@ -2,7 +2,6 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
-import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.util.TestUtil;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldBuilder;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)

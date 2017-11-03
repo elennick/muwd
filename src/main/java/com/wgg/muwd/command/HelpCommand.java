@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
 
         if (input.length > 1) {
             boolean isValidCommandForWorld = commandRegistry.isCommandValidForWorld(input[1], world);
-            if(isValidCommandForWorld) {
+            if (isValidCommandForWorld) {
                 return getResponseText(commandRegistry, input[1]);
             }
         }

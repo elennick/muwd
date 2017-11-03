@@ -18,7 +18,7 @@ public class WhoCommand extends Command {
 
     @Override
     public List<String> getAliases() {
-        return Arrays.asList("online","users");
+        return Arrays.asList("online", "users");
     }
 
     @Override

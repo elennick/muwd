@@ -2,53 +2,43 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.world.World;
-import org.reflections.Reflections;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Scope("singleton")
-public class CommandRegistry {
+public class CommandRegistry implements ApplicationContextAware {
 
     private Map<String, Command> registeredCommands;
 
-    public CommandRegistry() {
+    private ApplicationContext ctx;
+
+    @Override
+    public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+        this.ctx = ctx;
         loadCommands();
     }
 
     private void loadCommands() {
         initCommandMap();
-        Set<Class<? extends Command>> allCommandClasses = getAllCommandClasses();
-        registerAllCommands(allCommandClasses);
+        registerAllCommands();
     }
 
     private void initCommandMap() {
-        if(null == registeredCommands) {
+        if (null == registeredCommands) {
             registeredCommands = new HashMap<>();
         } else {
             registeredCommands.clear();
         }
     }
 
-    private Set<Class<? extends Command>> getAllCommandClasses() {
-        Reflections reflections = new Reflections("com.wgg.muwd.command");
-        Set<Class<? extends Command>> sourcesInPackage = reflections.getSubTypesOf(Command.class);
-        return sourcesInPackage;
-    }
-
-    private void registerAllCommands(Set<Class<? extends Command>> allCommandClasses) {
-        for (Class<? extends Command> commandClass : allCommandClasses) {
-            Command command = null;
-            try {
-                command = commandClass.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                System.out.println("error initializing command -> " + commandClass.getName());
-                e.printStackTrace();
-            }
-
+    private void registerAllCommands() {
+        Map<String, Command> commands = ctx.getBeansOfType(Command.class);
+        for (Command command : commands.values()) {
             registerCommand(command);
             System.out.println("registered command -> " + command.getCommandValue());
         }

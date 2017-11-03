@@ -5,8 +5,6 @@ import com.wgg.muwd.command.service.CommandRegistry;
 import com.wgg.muwd.websocket.ClientRegistry;
 import com.wgg.muwd.world.World;
 
-import java.util.List;
-
 public final class TestUtil {
 
     private TestUtil() {

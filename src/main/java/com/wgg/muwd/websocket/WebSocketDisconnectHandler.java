@@ -17,7 +17,7 @@ public class WebSocketDisconnectHandler implements ApplicationListener<SessionDi
     public void onApplicationEvent(SessionDisconnectEvent sessionDisconnectEvent) {
         Message<byte[]> message = sessionDisconnectEvent.getMessage();
         MessageHeaders headers = message.getHeaders();
-        String simpSessionId = (String)headers.get("simpSessionId");
+        String simpSessionId = (String) headers.get("simpSessionId");
 
         clientRegistry.remove(simpSessionId);
         System.out.println("removed client -> " + simpSessionId);
