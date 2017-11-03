@@ -7,9 +7,7 @@ import com.wgg.muwd.world.World;
 
 public final class TestUtil {
 
-    private TestUtil() {
-        //dont instantiate static utils class
-    }
+    private TestUtil() {}
 
     public static Command getTestCommand(String commandValue, String response) {
         return new MockCommand(commandValue, response);

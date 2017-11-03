@@ -43,6 +43,7 @@ public class CommandRegistryTest {
                 .thenReturn(Optional.of(world));
     }
 
+    @Ignore
     @Test
     public void testGettingAllEnabledCommandsForAWorld() {
         List<Command> allCommandsForWorld = commandRegistry.getAllCommandsForWorld(world);
