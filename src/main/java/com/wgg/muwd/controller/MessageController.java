@@ -5,6 +5,7 @@ import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.websocket.ClientRegistry;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 public class MessageController {
 
@@ -35,7 +37,7 @@ public class MessageController {
 
         Client client = clientRegistry.get(headerAccessor.getHeader("simpSessionId").toString());
         commandWrapper.setClient(client);
-        System.out.println("commandWrapper = " + commandWrapper);
+        log.info("Handling Command: {}", commandWrapper);
 
         Optional<String> responseOptional = commandHandler.handleCommandInput(commandWrapper);
         return responseOptional.map(ResponseWrapper::new).orElse(null);

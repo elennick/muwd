@@ -2,6 +2,7 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.world.World;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class CommandRegistry implements ApplicationContextAware {
 
@@ -40,7 +42,7 @@ public class CommandRegistry implements ApplicationContextAware {
         Map<String, Command> commands = ctx.getBeansOfType(Command.class);
         for (Command command : commands.values()) {
             registerCommand(command);
-            System.out.println("registered command -> " + command.getCommandValue());
+            log.info("Registered command: " + command.getCommandValue());
         }
     }
 

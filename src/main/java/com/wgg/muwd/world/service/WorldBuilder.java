@@ -2,6 +2,7 @@ package com.wgg.muwd.world.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wgg.muwd.world.World;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class WorldBuilder implements EnvironmentAware {
 
@@ -42,7 +44,7 @@ public class WorldBuilder implements EnvironmentAware {
     }
 
     private void loadWorld(File worldFile) {
-        System.out.println("Loading file: " + worldFile.getAbsolutePath());
+        log.info("Loading world file: {}", worldFile.getAbsolutePath());
 
         ObjectMapper mapper = new ObjectMapper();
         try {
