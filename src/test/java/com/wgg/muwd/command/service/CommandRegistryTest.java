@@ -3,7 +3,7 @@ package com.wgg.muwd.command.service;
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.util.TestUtil;
 import com.wgg.muwd.world.World;
-import com.wgg.muwd.world.service.WorldBuilder;
+import com.wgg.muwd.world.service.WorldManager;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class CommandRegistryTest {
 
     @Mock
-    private WorldBuilder mockWorldBuilder;
+    private WorldManager mockWorldManager;
 
     @Autowired
     @InjectMocks
@@ -39,7 +39,7 @@ public class CommandRegistryTest {
         world = new World();
         world.setEnabledCommands(enabledCommandsForWorld);
 
-        when(mockWorldBuilder.getCurrentlyLoadedWorld())
+        when(mockWorldManager.getCurrentlyLoadedWorld())
                 .thenReturn(Optional.of(world));
     }
 

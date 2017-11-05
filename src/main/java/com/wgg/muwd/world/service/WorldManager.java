@@ -1,6 +1,7 @@
 package com.wgg.muwd.world.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.EnvironmentAware;
@@ -16,10 +17,10 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class WorldBuilder implements EnvironmentAware {
+public class WorldManager implements EnvironmentAware {
 
-    public static final String DEFAULT_WORLD_FILE = "worlds/default.world";
-    public static final String WORLD_FILE_PARAM_KEY = "world.file";
+    static final String DEFAULT_WORLD_FILE = "worlds/default.world";
+    static final String WORLD_FILE_PARAM_KEY = "world.file";
     private World world;
 
     //can specify param to load a specific world file when the server starts
@@ -50,8 +51,13 @@ public class WorldBuilder implements EnvironmentAware {
         try {
             world = mapper.readValue(worldFile, World.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to load a world!", e);
+            throw new RuntimeException("Failed to load a world!");
         }
+    }
+
+    public Optional<Room> getRoomById(Long id) {
+        return world.getRoomById(id);
     }
 
     public List<String> getListOfEnabledCommands() {
@@ -72,7 +78,7 @@ public class WorldBuilder implements EnvironmentAware {
         }
     }
 
-    public boolean isWorldLoaded() {
+    boolean isWorldLoaded() {
         return getCurrentlyLoadedWorld().isPresent();
     }
 }

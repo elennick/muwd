@@ -3,7 +3,7 @@ package com.wgg.muwd.command.service;
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.websocket.ClientRegistry;
-import com.wgg.muwd.world.service.WorldBuilder;
+import com.wgg.muwd.world.service.WorldManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,13 +18,13 @@ public class CommandHandler {
 
     private ClientRegistry clientRegistry;
 
-    private WorldBuilder worldBuilder;
+    private WorldManager worldManager;
 
     @Autowired
-    public CommandHandler(CommandRegistry commandRegistry, ClientRegistry clientRegistry, WorldBuilder worldBuilder) {
+    public CommandHandler(CommandRegistry commandRegistry, ClientRegistry clientRegistry, WorldManager worldManager) {
         this.commandRegistry = commandRegistry;
         this.clientRegistry = clientRegistry;
-        this.worldBuilder = worldBuilder;
+        this.worldManager = worldManager;
     }
 
     public Optional<String> handleCommandInput(CommandWrapper commandWrapper) {
@@ -39,7 +39,7 @@ public class CommandHandler {
             Command command = commandOptional.get();
             responseOptional = command.getResponse(
                     inputTextSplit,
-                    worldBuilder.getCurrentlyLoadedWorld().get(),
+                    worldManager.getCurrentlyLoadedWorld().get(),
                     commandWrapper.getClient());
         } else {
             responseOptional = Optional.of("Unrecognized command: '" + inputText + "'");
@@ -49,7 +49,7 @@ public class CommandHandler {
     }
 
     private boolean isValidCommand(Optional<Command> commandOptional) {
-        List<String> listOfEnabledCommands = worldBuilder.getListOfEnabledCommands();
+        List<String> listOfEnabledCommands = worldManager.getListOfEnabledCommands();
         boolean commandIsPresentInSystem = commandOptional.isPresent();
         boolean commandIsEnabledInWorld = commandIsPresentInSystem && listOfEnabledCommands.contains(commandOptional.get().getCommandValue());
 

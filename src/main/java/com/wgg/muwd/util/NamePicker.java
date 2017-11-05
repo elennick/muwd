@@ -9,7 +9,7 @@ import java.util.Random;
 @Service
 public class NamePicker {
 
-    private final List<String> names = Arrays.asList("Evan", "Josh", "Natalie", "Molly");
+    private final List<String> names = Arrays.asList("Evan", "Josh", "Natalie", "Lucy", "Molly");
     private Random random = new Random();
 
     public String getRandomName() {

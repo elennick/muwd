@@ -4,7 +4,7 @@ import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.util.TestUtil;
 import com.wgg.muwd.world.World;
-import com.wgg.muwd.world.service.WorldBuilder;
+import com.wgg.muwd.world.service.WorldManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class CommandHandlerTest {
     private CommandRegistry mockCommandRegistry;
 
     @Mock
-    private WorldBuilder mockWorldBuilder;
+    private WorldManager mockWorldManager;
 
     @Autowired
     @InjectMocks
@@ -54,10 +54,10 @@ public class CommandHandlerTest {
         when(mockCommandRegistry.getCommandByValue(invalidCommandValue))
                 .thenReturn(Optional.empty());
 
-        when(mockWorldBuilder.getListOfEnabledCommands())
+        when(mockWorldManager.getListOfEnabledCommands())
                 .thenReturn(Arrays.asList(validCommandValue));
 
-        when(mockWorldBuilder.getCurrentlyLoadedWorld())
+        when(mockWorldManager.getCurrentlyLoadedWorld())
                 .thenReturn(Optional.of(world));
     }
 

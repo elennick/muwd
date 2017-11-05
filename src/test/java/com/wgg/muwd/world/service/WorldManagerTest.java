@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MuwdApplication.class)
-public class WorldBuilderTest {
+public class WorldManagerTest {
 
     @Autowired
-    private WorldBuilder worldBuilder;
+    private WorldManager worldManager;
 
     @Autowired
     private ConfigurableEnvironment environment;
@@ -26,26 +26,26 @@ public class WorldBuilderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testLoadingWorldFileWithParam_Invalid() {
         String invalidFileName = "this-isnt-a-valid-file.world";
-        String invalidParamString = WorldBuilder.WORLD_FILE_PARAM_KEY + "=" + invalidFileName;
+        String invalidParamString = WorldManager.WORLD_FILE_PARAM_KEY + "=" + invalidFileName;
         EnvironmentTestUtils.addEnvironment(environment, invalidParamString);
 
-        worldBuilder.setEnvironment(environment);
+        worldManager.setEnvironment(environment);
     }
 
     @Test
     public void testLoadingWorldFileWithParam_Valid() {
-        String validParamString = WorldBuilder.WORLD_FILE_PARAM_KEY + "=" + WorldBuilder.DEFAULT_WORLD_FILE;
+        String validParamString = WorldManager.WORLD_FILE_PARAM_KEY + "=" + WorldManager.DEFAULT_WORLD_FILE;
         EnvironmentTestUtils.addEnvironment(environment, validParamString);
 
-        worldBuilder.setEnvironment(environment);
+        worldManager.setEnvironment(environment);
 
-        assertThat(worldBuilder.isWorldLoaded());
+        assertThat(worldManager.isWorldLoaded());
     }
 
     @Test
     public void testLoadingDefaultWorldFile() {
-        worldBuilder.setEnvironment(environment);
+        worldManager.setEnvironment(environment);
 
-        assertThat(worldBuilder.isWorldLoaded());
+        assertThat(worldManager.isWorldLoaded());
     }
 }
