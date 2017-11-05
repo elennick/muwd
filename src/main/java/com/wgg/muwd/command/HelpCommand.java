@@ -1,8 +1,9 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.command.service.CommandRegistry;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.World;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -10,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class HelpCommand extends Command {
+
+    @Autowired
+    private CommandRegistry commandRegistry;
 
     @Override
     public String getCommandValue() {
@@ -22,11 +26,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input,
-                              World world,
-                              CommandRegistry commandRegistry,
-                              ClientRegistry clientRegistry) {
-
+    public String getResponse(String[] input, World world, Client client) {
         if (input.length > 1) {
             boolean isValidCommandForWorld = commandRegistry.isCommandValidForWorld(input[1], world);
             if (isValidCommandForWorld) {

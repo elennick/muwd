@@ -10,22 +10,22 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ClientRegistry {
 
-    Map<String, Client> registry;
+    private Map<String, Client> registry;
 
     public ClientRegistry() {
         registry = new ConcurrentHashMap<>();
     }
 
-    public void put(String key, Client value) {
-        registry.put(key, value);
+    public void put(String sessionId, Client value) {
+        registry.put(sessionId, value);
     }
 
-    public Client get(String key) {
-        return registry.get(key);
+    public Client get(String sessionId) {
+        return registry.get(sessionId);
     }
 
-    public void remove(String key) {
-        registry.remove(key);
+    public void remove(String sessionId) {
+        registry.remove(sessionId);
     }
 
     public List<Client> getClients() {

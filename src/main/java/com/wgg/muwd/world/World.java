@@ -9,6 +9,7 @@ public class World {
 
     private String name;
     private String motd;
+    private String startingRoom;
     private List<Room> rooms;
     private List<String> enabledCommands;
 
@@ -26,6 +27,14 @@ public class World {
 
     public void setMotd(String motd) {
         this.motd = motd;
+    }
+
+    public String getStartingRoom() {
+        return startingRoom;
+    }
+
+    public void setStartingRoom(String startingRoom) {
+        this.startingRoom = startingRoom;
     }
 
     public List<Room> getRooms() {
@@ -61,10 +70,13 @@ public class World {
 
     @Override
     public String toString() {
-        return "World{" +
-                "name='" + name + '\'' +
-                ", motd='" + motd + '\'' +
-                ", rooms=" + rooms +
-                '}';
+        final StringBuilder sb = new StringBuilder("World{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", motd='").append(motd).append('\'');
+        sb.append(", startingRoom='").append(startingRoom).append('\'');
+        sb.append(", rooms=").append(rooms);
+        sb.append(", enabledCommands=").append(enabledCommands);
+        sb.append('}');
+        return sb.toString();
     }
 }

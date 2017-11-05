@@ -5,7 +5,6 @@ import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.websocket.ClientRegistry;
 import com.wgg.muwd.world.service.WorldBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -41,8 +40,7 @@ public class CommandHandler {
             response = command.getResponse(
                     inputTextSplit,
                     worldBuilder.getCurrentlyLoadedWorld().get(),
-                    commandRegistry,
-                    clientRegistry);
+                    commandWrapper.getClient());
         } else {
             response = "Unrecognized command: '" + inputText + "'";
         }

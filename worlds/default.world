@@ -2,6 +2,7 @@
     "name": "Sample World",
     "motd": "This is the sample world!",
     "enabledCommands": [ "help", "look", "move", "who", "broadcast" ],
+    "startingRoom": 1,
     "rooms": [
         {
             "id": 1,
