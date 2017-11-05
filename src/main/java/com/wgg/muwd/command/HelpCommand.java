@@ -26,15 +26,16 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, Client client) {
         if (input.length > 1) {
             boolean isValidCommandForWorld = commandRegistry.isCommandValidForWorld(input[1], world);
             if (isValidCommandForWorld) {
-                return getResponseText(commandRegistry, input[1]);
+                return Optional.of(getResponseText(commandRegistry, input[1]));
             }
         }
 
-        return getCommaDelimitedListOfAvailableCommands(commandRegistry, world);
+        String response = getCommaDelimitedListOfAvailableCommands(commandRegistry, world);
+        return Optional.of(response);
     }
 
     private String getResponseText(CommandRegistry commandRegistry, String command) {

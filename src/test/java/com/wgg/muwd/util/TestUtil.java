@@ -4,6 +4,8 @@ import com.wgg.muwd.command.Command;
 import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.World;
 
+import java.util.Optional;
+
 public final class TestUtil {
 
     private TestUtil() {}
@@ -29,8 +31,8 @@ public final class TestUtil {
         }
 
         @Override
-        public String getResponse(String[] input, World world, Client client) {
-            return response;
+        public Optional<String> getResponse(String[] input, World world, Client client) {
+            return Optional.of(response);
         }
 
         @Override

@@ -8,6 +8,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class BroadcastCommand extends Command {
 
@@ -25,10 +26,10 @@ public class BroadcastCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, Client client) {
         String broadcast = client.getName() + " yells \"" + input[1] + "\"";
         template.convertAndSend("/topic/message", new ResponseWrapper(broadcast));
-        return "You sure yelled good!";
+        return Optional.empty();
     }
 
     @Override

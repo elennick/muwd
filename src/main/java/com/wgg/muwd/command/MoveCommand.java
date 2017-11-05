@@ -5,6 +5,7 @@ import com.wgg.muwd.world.World;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class MoveCommand extends Command {
 
@@ -19,11 +20,11 @@ public class MoveCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, Client client) {
         if (input.length <= 1) {
-            return "What direction?";
+            return Optional.of("What direction?");
         }
-        return "moving " + input[1] + "...";
+        return Optional.of("moving " + input[1] + "...");
     }
 
     @Override

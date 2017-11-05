@@ -5,6 +5,7 @@ import com.wgg.muwd.world.World;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class LookCommand extends Command {
 
@@ -19,8 +20,8 @@ public class LookCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, World world, Client client) {
-        return "you see stuff";
+    public Optional<String> getResponse(String[] input, World world, Client client) {
+        return Optional.of("you see stuff");
     }
 
     @Override

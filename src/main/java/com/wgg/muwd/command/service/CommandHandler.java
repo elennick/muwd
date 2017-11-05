@@ -27,25 +27,25 @@ public class CommandHandler {
         this.worldBuilder = worldBuilder;
     }
 
-    public String handleCommandInput(CommandWrapper commandWrapper) {
+    public Optional<String> handleCommandInput(CommandWrapper commandWrapper) {
         String inputText = commandWrapper.getCommand();
         String[] inputTextSplit = getInputTextSplitBySpaces(inputText);
 
         String commandValue = inputTextSplit[0];
         Optional<Command> commandOptional = commandRegistry.getCommandByValue(commandValue);
 
-        String response;
+        Optional<String> responseOptional;
         if (isValidCommand(commandOptional)) {
             Command command = commandOptional.get();
-            response = command.getResponse(
+            responseOptional = command.getResponse(
                     inputTextSplit,
                     worldBuilder.getCurrentlyLoadedWorld().get(),
                     commandWrapper.getClient());
         } else {
-            response = "Unrecognized command: '" + inputText + "'";
+            responseOptional = Optional.of("Unrecognized command: '" + inputText + "'");
         }
 
-        return response;
+        return responseOptional;
     }
 
     private boolean isValidCommand(Optional<Command> commandOptional) {

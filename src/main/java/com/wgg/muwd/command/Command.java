@@ -5,6 +5,7 @@ import com.wgg.muwd.world.World;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 abstract public class Command {
 
@@ -14,9 +15,9 @@ abstract public class Command {
         return Collections.emptyList();
     }
 
-    abstract public String getResponse(String[] input,
-                                       World world,
-                                       Client client);
+    abstract public Optional<String> getResponse(String[] input,
+                                                 World world,
+                                                 Client client);
 
     abstract public String getHelpText();
 

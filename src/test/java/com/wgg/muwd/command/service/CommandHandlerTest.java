@@ -64,18 +64,19 @@ public class CommandHandlerTest {
     @Test
     public void testValidCommand() {
         CommandWrapper commandWrapper = new CommandWrapper(validCommandValue);
-        String actualResponse = commandHandler.handleCommandInput(commandWrapper);
+        Optional<String> actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(actualResponse).isEqualTo(mockResponse);
+        assertThat(actualResponse).isPresent();
+        assertThat(actualResponse.get()).isEqualTo(mockResponse);
     }
 
     @Test
     public void testInvalidCommand() {
         CommandWrapper commandWrapper = new CommandWrapper(invalidCommandValue);
-        String actualResponse = commandHandler.handleCommandInput(commandWrapper);
+        Optional<String> actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
-        assertThat(actualResponse).isNotEqualTo(mockResponse).contains("Unrecognized command");
+        assertThat(actualResponse).isPresent();
+        assertThat(actualResponse.get()).isNotEqualTo(mockResponse).contains("Unrecognized command");
     }
-
 
 }

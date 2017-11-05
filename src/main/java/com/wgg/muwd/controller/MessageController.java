@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
+
+import java.util.Optional;
 
 @Controller
 public class MessageController {
@@ -20,6 +23,9 @@ public class MessageController {
 
     @Autowired
     private ClientRegistry clientRegistry;
+
+    @Autowired
+    private SimpMessagingTemplate template;
 
     @MessageMapping("/command")
     @SendToUser("/topic/message")
@@ -31,7 +37,7 @@ public class MessageController {
         commandWrapper.setClient(client);
         System.out.println("commandWrapper = " + commandWrapper);
 
-        String response = commandHandler.handleCommandInput(commandWrapper);
-        return new ResponseWrapper(response);
+        Optional<String> responseOptional = commandHandler.handleCommandInput(commandWrapper);
+        return responseOptional.map(ResponseWrapper::new).orElse(null);
     }
 }

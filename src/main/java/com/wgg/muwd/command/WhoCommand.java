@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class WhoCommand extends Command {
 
@@ -25,9 +26,10 @@ public class WhoCommand extends Command {
     }
 
     @Override
-    public String getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, Client client) {
         List<Client> clients = clientRegistry.getClients();
-        return StringUtils.collectionToDelimitedString(clients, ", ");
+        String response = StringUtils.collectionToDelimitedString(clients, ", ");
+        return Optional.of(response);
     }
 
     @Override
