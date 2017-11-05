@@ -63,7 +63,7 @@ public class CommandHandlerTest {
 
     @Test
     public void testValidCommand() {
-        CommandWrapper commandWrapper = new CommandWrapper(validCommandValue);
+        CommandWrapper commandWrapper = new CommandWrapper(validCommandValue, null);
         Optional<String> actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
         assertThat(actualResponse).isPresent();
@@ -72,7 +72,7 @@ public class CommandHandlerTest {
 
     @Test
     public void testInvalidCommand() {
-        CommandWrapper commandWrapper = new CommandWrapper(invalidCommandValue);
+        CommandWrapper commandWrapper = new CommandWrapper(invalidCommandValue, null);
         Optional<String> actualResponse = commandHandler.handleCommandInput(commandWrapper);
 
         assertThat(actualResponse).isPresent();

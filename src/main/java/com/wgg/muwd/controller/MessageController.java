@@ -26,9 +26,6 @@ public class MessageController {
     @Autowired
     private ClientRegistry clientRegistry;
 
-    @Autowired
-    private SimpMessagingTemplate template;
-
     @MessageMapping("/command")
     @SendToUser("/topic/message")
     public ResponseWrapper message(

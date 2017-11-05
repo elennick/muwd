@@ -51,7 +51,7 @@ public class CommandHandler {
     private boolean isValidCommand(Optional<Command> commandOptional) {
         List<String> listOfEnabledCommands = worldBuilder.getListOfEnabledCommands();
         boolean commandIsPresentInSystem = commandOptional.isPresent();
-        boolean commandIsEnabledInWorld = commandIsPresentInSystem ? listOfEnabledCommands.contains(commandOptional.get().getCommandValue()) : false;
+        boolean commandIsEnabledInWorld = commandIsPresentInSystem && listOfEnabledCommands.contains(commandOptional.get().getCommandValue());
 
         return commandIsPresentInSystem && commandIsEnabledInWorld;
     }
