@@ -16,4 +16,8 @@ public class CommandWrapper {
 
     private Client client;
 
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
 }

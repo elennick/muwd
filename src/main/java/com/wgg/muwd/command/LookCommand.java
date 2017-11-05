@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class LookCommand extends Command {
 
@@ -27,18 +28,8 @@ public class LookCommand extends Command {
 
     @Override
     public Optional<String> getResponse(String[] input, World world, Client client) {
-        Long currentRoom = client.getCurrentRoom();
-        Optional<Room> roomOptional = worldManager.getRoomById(currentRoom);
-
-        if (roomOptional.isPresent()) {
-            Room room = roomOptional.get();
-            String response = "<span style='color:green;'>" + room.getName() + "<br/>"
-                    + "<span style='color:white;'>" + room.getDescription() + "<br/>"
-                    + "<span style='color:cornflowerblue;'>" + room.getDirections() + "<br/>";
-            return Optional.of(response);
-        } else {
-            return Optional.of("You are surrounded by empty darkness...");
-        }
+        Room room = worldManager.getCurrentRoom(client);
+        return Optional.of(room.getTerminalFormattedText());
     }
 
     @Override

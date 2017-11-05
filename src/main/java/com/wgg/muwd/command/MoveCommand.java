@@ -1,13 +1,19 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.websocket.Client;
+import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
+import com.wgg.muwd.world.service.WorldManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class MoveCommand extends Command {
+
+    @Autowired
+    private WorldManager worldManager;
 
     @Override
     public String getCommandValue() {
@@ -24,7 +30,20 @@ public class MoveCommand extends Command {
         if (input.length <= 1) {
             return Optional.of("What direction?");
         }
-        return Optional.of("moving " + input[1] + "...");
+
+        String direction = input[1].toLowerCase();
+
+        Room currentRoom = worldManager.getCurrentRoom(client);
+        Long roomToMoveTo = currentRoom.getDirections().get(direction);
+
+        if (null != roomToMoveTo) {
+            client.setCurrentRoom(roomToMoveTo);
+            Room newRoom = worldManager.getCurrentRoom(client);
+            String response = "Moving " + direction + "...<br/>" + newRoom.getTerminalFormattedText();
+            return Optional.of(response);
+        } else {
+            return Optional.of("You can't go that direction!");
+        }
     }
 
     @Override

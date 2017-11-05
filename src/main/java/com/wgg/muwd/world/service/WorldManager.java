@@ -1,6 +1,7 @@
 package com.wgg.muwd.world.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,10 @@ public class WorldManager implements EnvironmentAware {
 
     public Optional<Room> getRoomById(Long id) {
         return world.getRoomById(id);
+    }
+
+    public Room getCurrentRoom(Client client) {
+        return getRoomById(client.getCurrentRoom()).get();
     }
 
     public List<String> getListOfEnabledCommands() {
