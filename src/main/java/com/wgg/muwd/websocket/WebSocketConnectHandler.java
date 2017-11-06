@@ -37,5 +37,7 @@ public class WebSocketConnectHandler implements ApplicationListener<SessionConne
 
         String broadcast = client.getName() + " has joined the world!";
         template.convertAndSend("/topic/message", new ResponseWrapper(broadcast));
+
+        //TODO send this user that just logged in the MOTD and show them the room theyre in
     }
 }

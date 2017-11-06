@@ -32,6 +32,8 @@ public class MessageController {
             @Payload CommandWrapper commandWrapper,
             SimpMessageHeaderAccessor headerAccessor) throws Exception {
 
+        //TODO strip any incoming command input of html tags or anything that could cause injection issues
+
         Client client = clientRegistry.get(headerAccessor.getHeader("simpSessionId").toString());
         commandWrapper.setClient(client);
         log.info("Handling Command: {}", commandWrapper);

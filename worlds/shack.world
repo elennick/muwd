@@ -1,0 +1,42 @@
+{
+    "name": "ShackWorld",
+    "motd": "This is a world for the Shacknews Game Jam!",
+    "enabledCommands": [ "help", "look", "move", "who", "broadcast" ],
+    "startingRoom": 1,
+    "rooms": [
+        {
+            "id": 1,
+            "name": "Your Shitty Bedroom",
+            "description": "You are in your disgusting fucking bedroom. It's really, really disgusting. You get up and out of your disgusting bed that is disgusting and stretch your arms. It's time to do something other than eat Pop Tarts and read about Kodiak's cat and anus. Get a move on!",
+            "directions": {
+                "north": 2
+            }
+        },
+        {
+            "id": 2,
+            "name": "Your Living Room",
+            "description": "Your living room is covered in dog hair and rotten food and beer bottles and what looks like the clothing from several hobos. Someone was clearly having a party here last night and did not clean up. That someone was clearly you. You should get to the kitchen and find some grub because you are STARVING!",
+            "directions": {
+                "south": 1,
+                "north": 3
+            }
+        },
+        {
+            "id": 3,
+            "name": "Your Kitchen",
+            "description": "You are in your kitchen. It looks like you're actually out of Pop Tarts and there is some Taylor Ham in the fridge but it's green and half covered in mold. Nerdsbeware would probably eat something like that but you don't quite have the stomach for it. Looks like you are going to have to go on an adventure to find your breakfast!",
+            "directions": {
+                "south": 2,
+                "east": 4
+            }
+        },
+        {
+            "id": 4,
+            "name": "Your Front Yard",
+            "description": "Well... you found the hobos and they sure could use those clothes you saw back in your house. They seem wasted and asleep and disturbingly naked just passed out on your lawn. You'd better tip-toe around them so they don't wake up.",
+            "directions": {
+                "west": 3
+            }
+        }
+    ]
+}

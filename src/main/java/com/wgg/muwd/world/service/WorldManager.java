@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class WorldManager implements EnvironmentAware {
 
-    static final String DEFAULT_WORLD_FILE = "worlds/default.world";
+    static final String DEFAULT_WORLD_FILE = "worlds/shack.world";
     static final String WORLD_FILE_PARAM_KEY = "world.file";
     private World world;
 

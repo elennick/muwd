@@ -1,6 +1,7 @@
 package com.wgg.muwd.command;
 
 import com.wgg.muwd.websocket.Client;
+import com.wgg.muwd.websocket.ClientRegistry;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldManager;
@@ -14,6 +15,9 @@ public class MoveCommand extends Command {
 
     @Autowired
     private WorldManager worldManager;
+
+    @Autowired
+    private ClientRegistry clientRegistry;
 
     @Override
     public String getCommandValue() {
@@ -39,7 +43,11 @@ public class MoveCommand extends Command {
         if (null != roomToMoveTo) {
             client.setCurrentRoom(roomToMoveTo);
             Room newRoom = worldManager.getCurrentRoom(client);
-            String response = "Moving " + direction + "...<br/>" + newRoom.getTerminalFormattedText();
+
+            List<String> allClientsInRoom = clientRegistry.getAllClientsInRoom(newRoom);
+            String newRoomText = newRoom.getTerminalFormattedText(allClientsInRoom);
+
+            String response = "Moving " + direction + "...<br/>" + newRoomText;
             return Optional.of(response);
         } else {
             return Optional.of("You can't go that direction!");
