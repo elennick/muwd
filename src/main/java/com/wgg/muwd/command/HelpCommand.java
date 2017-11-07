@@ -70,9 +70,9 @@ public class HelpCommand extends Command {
         List<String> aliasesForThisCommand = command.getAliases();
         String commaDelimitedListOfAliases = StringUtils.collectionToDelimitedString(aliasesForThisCommand, ", ");
 
-        stringBuilder.append("Help for command: '<span style='color:green;'>" + command.getCommandValue() + "</span>'<br/><br/>");
-        stringBuilder.append(command.getHelpText() + "<br/><br/>");
-        stringBuilder.append("Other aliases for this command: <span style='color:red;'>" + commaDelimitedListOfAliases + "</span><br/>");
+        stringBuilder.append("Help for command: '<span style='color:green;'>").append(command.getCommandValue()).append("</span>'<br/><br/>")
+                .append(command.getHelpText()).append("<br/><br/>")
+                .append("Other aliases for this command: <span style='color:red;'>").append(commaDelimitedListOfAliases).append("</span><br/>");
 
         return stringBuilder.toString();
     }
