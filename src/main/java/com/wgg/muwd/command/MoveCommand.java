@@ -2,6 +2,7 @@ package com.wgg.muwd.command;
 
 import com.wgg.muwd.client.ClientRegistry;
 import com.wgg.muwd.client.PlayerCharacter;
+import com.wgg.muwd.util.WebsocketUtil;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldManager;
@@ -18,6 +19,9 @@ public class MoveCommand extends Command {
 
     @Autowired
     private ClientRegistry clientRegistry;
+
+    @Autowired
+    private WebsocketUtil websocketUtil;
 
     @Override
     public String getCommandValue() {
@@ -41,6 +45,12 @@ public class MoveCommand extends Command {
         Long roomToMoveTo = currentRoom.getDirections().get(direction);
 
         if (null != roomToMoveTo) {
+            final String roomLeavingMessage = client.getName() + " left the room.";
+            websocketUtil.sendToAllInRoomButSelf(currentRoom.getId(), roomLeavingMessage, client);
+
+            final String roomEnteringMessage = client.getName() + " entered the room.";
+            websocketUtil.sendToAllInRoomButSelf(roomToMoveTo, roomEnteringMessage, client);
+
             client.setCurrentRoom(roomToMoveTo);
             Room newRoom = worldManager.getCurrentRoom(client);
 

@@ -47,6 +47,16 @@ public class WebsocketUtil {
         }
     }
 
+    public void sendToAllInRoomButSelf(Long roomId, String message, PlayerCharacter self) {
+        List<PlayerCharacter> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(roomId);
+        for (PlayerCharacter player : allPlayersInRoom) {
+            boolean notSelf = !player.getWebSocketSessionId().equals(self.getWebSocketSessionId());
+            if(notSelf) {
+                sendToSession(player.getWebSocketSessionId(), message);
+            }
+        }
+    }
+
     @Nullable
     public String getRoomDescription(Long roomId) {
         Optional<Room> roomOptional = worldManager.getRoomById(roomId);

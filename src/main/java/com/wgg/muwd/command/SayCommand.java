@@ -29,13 +29,8 @@ public class SayCommand extends Command {
 
         Long currentRoom = client.getCurrentRoom();
         List<PlayerCharacter> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(currentRoom);
-        for (PlayerCharacter player : allPlayersInRoom) {
-            boolean notThisClient = !player.getWebSocketSessionId().equals(client.getWebSocketSessionId());
-            if (notThisClient) {
-                util.sendToSession(player.getWebSocketSessionId(), messageForOthers);
-            }
-        }
 
+        util.sendToAllInRoomButSelf(currentRoom, messageForOthers, client);
         return Optional.of(messageForThisClient);
     }
 
