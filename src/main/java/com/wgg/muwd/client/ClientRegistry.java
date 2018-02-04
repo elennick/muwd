@@ -81,4 +81,8 @@ public class ClientRegistry {
                 .collect(Collectors.toList());
     }
 
+    public List<NonPlayerCharacter> getAllNpcs() {
+        return npcRegistry;
+    }
+
 }

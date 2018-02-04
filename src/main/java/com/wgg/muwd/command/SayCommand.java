@@ -2,6 +2,7 @@ package com.wgg.muwd.command;
 
 import com.wgg.muwd.client.ClientRegistry;
 import com.wgg.muwd.client.PlayerCharacter;
+import com.wgg.muwd.util.WebsocketUtil;
 import com.wgg.muwd.world.World;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +15,7 @@ public class SayCommand extends Command {
     private ClientRegistry clientRegistry;
 
     @Autowired
-    private CommandUtil util;
+    private WebsocketUtil util;
 
     @Override
     public String getCommandValue() {

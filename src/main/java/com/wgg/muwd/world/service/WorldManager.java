@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wgg.muwd.client.ClientRegistry;
 import com.wgg.muwd.client.NonPlayerCharacter;
 import com.wgg.muwd.client.PlayerCharacter;
+import com.wgg.muwd.util.WebsocketUtil;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -26,11 +29,14 @@ public class WorldManager implements EnvironmentAware {
     static final String DEFAULT_WORLD_FILE = "worlds/default.world";
     static final String WORLD_FILE_PARAM_KEY = "world.file";
     private final ClientRegistry clientRegistry;
+    private final WebsocketUtil websocketUtil;
     private World world;
+    private Random random = new Random();
 
     @Autowired
-    public WorldManager(ClientRegistry clientRegistry) {
+    public WorldManager(ClientRegistry clientRegistry, WebsocketUtil websocketUtil) {
         this.clientRegistry = clientRegistry;
+        this.websocketUtil = websocketUtil;
     }
 
     //can specify param to load a specific world file when the server starts
@@ -64,6 +70,8 @@ public class WorldManager implements EnvironmentAware {
             for (NonPlayerCharacter npc : world.getNpcs()) {
                 clientRegistry.putNpc(npc);
             }
+
+            startNpcActing();
         } catch (IOException e) {
             log.error("Failed to load a world!", e);
             throw new RuntimeException("Failed to load a world!");
@@ -98,5 +106,27 @@ public class WorldManager implements EnvironmentAware {
 
     boolean isWorldLoaded() {
         return getCurrentlyLoadedWorld().isPresent();
+    }
+
+    private void startNpcActing() {
+        List<NonPlayerCharacter> npcs = clientRegistry.getAllNpcs();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    int delay = 15 + random.nextInt(45);
+                    TimeUnit.SECONDS.sleep(delay);
+
+                    for (NonPlayerCharacter npc : npcs) {
+                        Long roomId = npc.getCurrentRoom();
+                        List<String> dialogue = npc.getDialogue();
+                        String randomDialogueLine = dialogue.get(random.nextInt(dialogue.size()));
+                        String message = npc.getName() + " says \"" + randomDialogueLine + "\"";
+                        websocketUtil.sendToAllInRoom(roomId, message);
+                    }
+                } catch (InterruptedException e) {
+                    log.error("Thread interrupted", e);
+                }
+            }
+        }).start();
     }
 }
