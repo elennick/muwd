@@ -1,5 +1,7 @@
-package com.wgg.muwd.websocket;
+package com.wgg.muwd.client.websocket;
 
+import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,12 @@ public class WebSocketDisconnectHandler implements ApplicationListener<SessionDi
         MessageHeaders headers = message.getHeaders();
         String simpSessionId = (String) headers.get("simpSessionId");
 
-        Client client = clientRegistry.get(simpSessionId);
+        PlayerCharacter client = clientRegistry.getPlayerBySessionId(simpSessionId);
         String broadcast = client.getName() + " has left the world!";
         template.convertAndSend("/topic/message", new ResponseWrapper(broadcast));
 
-        clientRegistry.remove(simpSessionId);
-        log.info("Removed Client from client registry: {}", simpSessionId);
+        clientRegistry.removePlayerBySessionId(simpSessionId);
+        log.info("Removed PlayerCharacter from client registry: {}", simpSessionId);
     }
 
 }

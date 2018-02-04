@@ -2,7 +2,7 @@ package com.wgg.muwd.command.service;
 
 import com.wgg.muwd.command.Command;
 import com.wgg.muwd.controller.model.CommandWrapper;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.client.ClientRegistry;
 import com.wgg.muwd.world.service.WorldManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

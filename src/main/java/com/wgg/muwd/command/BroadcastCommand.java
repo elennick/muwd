@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.controller.model.ResponseWrapper;
-import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.World;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -26,7 +26,7 @@ public class BroadcastCommand extends Command {
     }
 
     @Override
-    public Optional<String> getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
         String broadcast = client.getName() + " yells \"" + input[1] + "\"";
         template.convertAndSend("/topic/message", new ResponseWrapper(broadcast));
         return Optional.empty();

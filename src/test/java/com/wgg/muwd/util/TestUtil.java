@@ -1,7 +1,7 @@
 package com.wgg.muwd.util;
 
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.command.Command;
-import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.World;
 
 import java.util.Optional;
@@ -31,7 +31,7 @@ public final class TestUtil {
         }
 
         @Override
-        public Optional<String> getResponse(String[] input, World world, Client client) {
+        public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
             return Optional.of(response);
         }
 

@@ -1,16 +1,15 @@
 package com.wgg.muwd.controller;
 
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.command.service.CommandHandler;
 import com.wgg.muwd.controller.model.CommandWrapper;
 import com.wgg.muwd.controller.model.ResponseWrapper;
-import com.wgg.muwd.websocket.Client;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.client.ClientRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
@@ -34,7 +33,7 @@ public class MessageController {
 
         //TODO strip any incoming command input of html tags or anything that could cause injection issues
 
-        Client client = clientRegistry.get(headerAccessor.getHeader("simpSessionId").toString());
+        PlayerCharacter client = clientRegistry.getPlayerBySessionId(headerAccessor.getHeader("simpSessionId").toString());
         commandWrapper.setClient(client);
         log.info("Handling Command: {}", commandWrapper);
 

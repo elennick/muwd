@@ -1,5 +1,7 @@
-package com.wgg.muwd.websocket;
+package com.wgg.muwd.client.websocket;
 
+import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.controller.model.ResponseWrapper;
 import com.wgg.muwd.util.NamePicker;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +33,9 @@ public class WebSocketConnectHandler implements ApplicationListener<SessionConne
         String simpSessionId = (String) headers.get("simpSessionId");
 
         String randomName = namePicker.getRandomName();
-        Client client = new Client(simpSessionId, randomName, 1L);
-        clientRegistry.put(simpSessionId, client);
-        log.info("Added Client to client registry: {}", simpSessionId);
+        PlayerCharacter client = new PlayerCharacter(simpSessionId, randomName, 1L);
+        clientRegistry.putPlayer(simpSessionId, client);
+        log.info("Added PlayerCharacter to client registry: {}", simpSessionId);
 
         String broadcast = client.getName() + " has joined the world!";
         template.convertAndSend("/topic/message", new ResponseWrapper(broadcast));

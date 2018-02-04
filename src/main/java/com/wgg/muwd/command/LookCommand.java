@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
-import com.wgg.muwd.websocket.Client;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldManager;
@@ -30,10 +30,11 @@ public class LookCommand extends Command {
     }
 
     @Override
-    public Optional<String> getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
         Room room = worldManager.getCurrentRoom(client);
-        List<String> allClientsInRoom = clientRegistry.getAllClientsInRoom(room);
-        return Optional.of(room.getTerminalFormattedText(allClientsInRoom));
+        List<String> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(room);
+        List<String> allNpcsInRoom = clientRegistry.getAllNpcsInRoom(room);
+        return Optional.of(room.getTerminalFormattedText(allPlayersInRoom, allNpcsInRoom));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.wgg.muwd.world;
 
+import com.wgg.muwd.client.NonPlayerCharacter;
 import com.wgg.muwd.util.StreamUtil;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class World {
     private String startingRoom;
     private List<Room> rooms;
     private List<String> enabledCommands;
+    private List<NonPlayerCharacter> npcs;
 
     public Optional<Room> getRoomById(Long id) {
         Room room = null;

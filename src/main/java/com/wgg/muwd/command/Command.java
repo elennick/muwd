@@ -1,6 +1,6 @@
 package com.wgg.muwd.command;
 
-import com.wgg.muwd.websocket.Client;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.world.World;
 
 import java.util.Collections;
@@ -17,7 +17,7 @@ abstract public class Command {
 
     abstract public Optional<String> getResponse(String[] input,
                                                  World world,
-                                                 Client client);
+                                                 PlayerCharacter client);
 
     abstract public String getHelpText();
 

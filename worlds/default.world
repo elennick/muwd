@@ -1,7 +1,14 @@
 {
     "name": "Sample World",
     "motd": "This is the sample world!",
-    "enabledCommands": [ "help", "look", "move", "who", "broadcast" ],
+    "enabledCommands": [
+        "help",
+        "look",
+        "move",
+        "who",
+        "broadcast",
+        "info"
+    ],
     "startingRoom": 1,
     "rooms": [
         {
@@ -19,6 +26,17 @@
             "directions": {
                 "east": 1
             }
+        }
+    ],
+    "npcs": [
+        {
+            "id": 1,
+            "name": "Giroux",
+            "description": "He is a hockey player.",
+            "dialogue": [
+                "I like hockey!",
+                "My beard is glorious!"
+            ]
         }
     ]
 }

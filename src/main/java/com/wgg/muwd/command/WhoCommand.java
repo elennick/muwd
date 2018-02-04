@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
-import com.wgg.muwd.websocket.Client;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
+import com.wgg.muwd.client.ClientRegistry;
 import com.wgg.muwd.world.World;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -26,8 +26,8 @@ public class WhoCommand extends Command {
     }
 
     @Override
-    public Optional<String> getResponse(String[] input, World world, Client client) {
-        List<Client> clients = clientRegistry.getClients();
+    public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
+        List<PlayerCharacter> clients = clientRegistry.getPlayerClients();
         String response = StringUtils.collectionToDelimitedString(clients, ", ");
         return Optional.of(response);
     }

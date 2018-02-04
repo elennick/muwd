@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
-import com.wgg.muwd.websocket.Client;
-import com.wgg.muwd.websocket.ClientRegistry;
+import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import com.wgg.muwd.world.service.WorldManager;
@@ -30,7 +30,7 @@ public class MoveCommand extends Command {
     }
 
     @Override
-    public Optional<String> getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
         if (input.length <= 1) {
             return Optional.of("What direction?");
         }
@@ -44,8 +44,9 @@ public class MoveCommand extends Command {
             client.setCurrentRoom(roomToMoveTo);
             Room newRoom = worldManager.getCurrentRoom(client);
 
-            List<String> allClientsInRoom = clientRegistry.getAllClientsInRoom(newRoom);
-            String newRoomText = newRoom.getTerminalFormattedText(allClientsInRoom);
+            List<String> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(newRoom);
+            List<String> allNpcsInRoom = clientRegistry.getAllNpcsInRoom(newRoom);
+            String newRoomText = newRoom.getTerminalFormattedText(allPlayersInRoom, allNpcsInRoom);
 
             String response = "Moving " + direction + "...<br/>" + newRoomText;
             return Optional.of(response);

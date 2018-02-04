@@ -1,10 +1,13 @@
 package com.wgg.muwd.world.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wgg.muwd.websocket.Client;
+import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.NonPlayerCharacter;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.world.Room;
 import com.wgg.muwd.world.World;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,15 @@ import java.util.Optional;
 @Service
 public class WorldManager implements EnvironmentAware {
 
-    static final String DEFAULT_WORLD_FILE = "worlds/shack.world";
+    static final String DEFAULT_WORLD_FILE = "worlds/default.world";
     static final String WORLD_FILE_PARAM_KEY = "world.file";
+    private final ClientRegistry clientRegistry;
     private World world;
+
+    @Autowired
+    public WorldManager(ClientRegistry clientRegistry) {
+        this.clientRegistry = clientRegistry;
+    }
 
     //can specify param to load a specific world file when the server starts
     //ie: java -jar muwd.jar --world.file=your.world
@@ -51,6 +60,10 @@ public class WorldManager implements EnvironmentAware {
         ObjectMapper mapper = new ObjectMapper();
         try {
             world = mapper.readValue(worldFile, World.class);
+
+            for (NonPlayerCharacter npc : world.getNpcs()) {
+                clientRegistry.putNpc(npc);
+            }
         } catch (IOException e) {
             log.error("Failed to load a world!", e);
             throw new RuntimeException("Failed to load a world!");
@@ -61,7 +74,7 @@ public class WorldManager implements EnvironmentAware {
         return world.getRoomById(id);
     }
 
-    public Room getCurrentRoom(Client client) {
+    public Room getCurrentRoom(PlayerCharacter client) {
         return getRoomById(client.getCurrentRoom()).get();
     }
 

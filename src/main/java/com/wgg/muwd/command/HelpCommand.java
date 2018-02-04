@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.command.service.CommandRegistry;
-import com.wgg.muwd.websocket.Client;
 import com.wgg.muwd.world.World;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -26,7 +26,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public Optional<String> getResponse(String[] input, World world, Client client) {
+    public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
         if (input.length > 1) {
             boolean isValidCommandForWorld = commandRegistry.isCommandValidForWorld(input[1], world);
             if (isValidCommandForWorld) {

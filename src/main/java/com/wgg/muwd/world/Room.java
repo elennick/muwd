@@ -20,7 +20,15 @@ public class Room {
     private String description;
     private Map<String, Long> directions;
 
-    public String getTerminalFormattedText(@Nullable List<String> clientsInRoom) {
+    public String getTerminalFormattedText() {
+        return getTerminalFormattedText(null, null);
+    }
+
+    public String getTerminalFormattedText(@Nullable List<String> playersInRoom) {
+        return getTerminalFormattedText(playersInRoom, null);
+    }
+
+    public String getTerminalFormattedText(@Nullable List<String> playersInRoom, @Nullable List<String> npcsInRoom) {
         String directions = this.getDirections().isEmpty() ? "none" :
                 this.getDirections().keySet().stream().collect(Collectors.joining(", "));
 
@@ -28,9 +36,14 @@ public class Room {
                 + "<span style='color:white;'>" + this.getDescription() + "</span><br/>"
                 + "Exits: <span style='color:cornflowerblue;'>" + directions + "</span><br/>";
 
-        if (null != clientsInRoom && clientsInRoom.size() > 0) {
-            String clients = clientsInRoom.stream().collect(Collectors.joining(", "));
+        if (null != playersInRoom && playersInRoom.size() > 0) {
+            String clients = playersInRoom.stream().collect(Collectors.joining(", "));
             response += "Players here: <span style='color:cornflowerblue;'>" + clients + "</span><br/>";
+        }
+
+        if (null != npcsInRoom && npcsInRoom.size() > 0) {
+            String clients = npcsInRoom.stream().collect(Collectors.joining(", "));
+            response += "NPCs here: <span style='color:cornflowerblue;'>" + clients + "</span><br/>";
         }
 
         return response;

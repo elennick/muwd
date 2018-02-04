@@ -1,4 +1,4 @@
-package com.wgg.muwd.websocket;
+package com.wgg.muwd.client.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
