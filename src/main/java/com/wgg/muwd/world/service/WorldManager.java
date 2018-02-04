@@ -113,7 +113,7 @@ public class WorldManager implements EnvironmentAware {
         new Thread(() -> {
             while (true) {
                 try {
-                    int delay = 15 + random.nextInt(45);
+                    int delay = 30 + random.nextInt(90);
                     TimeUnit.SECONDS.sleep(delay);
 
                     for (NonPlayerCharacter npc : npcs) {

@@ -17,7 +17,8 @@
             "name": "Room 1",
             "description": "You are in an empty room",
             "directions": {
-                "west": 2
+                "west": 2,
+                "north": 4
             }
         },
         {
@@ -25,7 +26,26 @@
             "name": "Room 2",
             "description": "You are in a giant ball pit",
             "directions": {
-                "east": 1
+                "east": 1,
+                "north": 3
+            }
+        },
+        {
+            "id": 3,
+            "name": "Room 3",
+            "description": "You are on the moon! Wow!",
+            "directions": {
+                "south": 2,
+                "east": 4
+            }
+        },
+        {
+            "id": 4,
+            "name": "Room 4",
+            "description": "This room is made up of spaghetti. Lots of spaghetti.",
+            "directions": {
+                "west": 3,
+                "south": 1
             }
         }
     ],
