@@ -129,4 +129,8 @@ public class WorldManager implements EnvironmentAware {
             }
         }).start();
     }
+
+    public String getMotd() {
+        return world.getMotd();
+    }
 }

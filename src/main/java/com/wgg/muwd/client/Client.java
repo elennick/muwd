@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-abstract class Client {
+abstract public class Client {
 
     @NonNull
     private String name;

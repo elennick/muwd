@@ -1,6 +1,6 @@
 {
     "name": "Sample World",
-    "motd": "This is the sample world!",
+    "motd": "<br/>MESSAGE OF THE DAY:<br/>*******************************<br/>*&nbsp;&nbsp;This is the sample world!&nbsp;&nbsp;*<br/>*******************************<br/><br/>",
     "enabledCommands": [
         "help",
         "look",
@@ -32,7 +32,7 @@
     "npcs": [
         {
             "id": 1,
-            "name": "Giroux",
+            "name": "Claude Giroux",
             "description": "He is a hockey player.",
             "currentRoom": 2,
             "dialogue": [
@@ -40,6 +40,18 @@
                 "My beard is glorious!",
                 "I sure do love a freshly taped stick...",
                 "Sidney Crosby sure is a weener, dontcha think, eh?"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Jerry Seinfeld",
+            "description": "He is a wonderful comedian.",
+            "currentRoom": 1,
+            "dialogue": [
+                "A two-year-old is kind of like having a blender, but you don't have a top for it.",
+                "That's the true spirit of Christmas; people being helped by people other than me.",
+                "There is no such thing as fun for the whole family.",
+                "You can be passionate about anything. Pay attention, don't let life go by you. Fall in love with the back of your cereal box."
             ]
         }
     ]
