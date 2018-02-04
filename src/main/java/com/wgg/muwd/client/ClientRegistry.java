@@ -44,31 +44,37 @@ public class ClientRegistry {
         return Lists.newArrayList(pcRegistry.values());
     }
 
-    public List<String> getAllPlayersInRoom(Room room) {
-        return getAllPlayersInRoom(room.getId());
+    public List<PlayerCharacter> getAllPlayersInRoom(Long roomId) {
+        return pcRegistry.values().stream()
+                .filter(c -> Objects.equals(c.getCurrentRoom(), roomId))
+                .collect(Collectors.toList());
     }
 
-    public List<String> getAllPlayersInRoom(Long roomId) {
+    public List<String> getAllPlayerNamesInRoom(Room room) {
+        return getAllPlayerNamesInRoom(room.getId());
+    }
+
+    public List<String> getAllPlayerNamesInRoom(Long roomId) {
         return pcRegistry.values().stream()
                 .filter(c -> Objects.equals(c.getCurrentRoom(), roomId))
                 .map(PlayerCharacter::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getAllNpcsInRoom(Room room) {
-        return getAllNpcsInRoom(room.getId());
+    public List<String> getAllNpcNamesInRoom(Room room) {
+        return getAllNpcNamesInRoom(room.getId());
     }
 
-    public List<String> getAllNpcsInRoom(Long roomId) {
+    public List<String> getAllNpcNamesInRoom(Long roomId) {
         return npcRegistry.stream()
                 .filter(c -> Objects.equals(c.getCurrentRoom(), roomId))
                 .map(NonPlayerCharacter::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getAllClientsInRoom(Long roomId) {
-        List<String> playersInRoom = getAllPlayersInRoom(roomId);
-        List<String> npcsInRoom = getAllNpcsInRoom(roomId);
+    public List<String> getAllClientNamesInRoom(Long roomId) {
+        List<String> playersInRoom = getAllPlayerNamesInRoom(roomId);
+        List<String> npcsInRoom = getAllNpcNamesInRoom(roomId);
 
         return Stream
                 .concat(playersInRoom.stream(), npcsInRoom.stream())

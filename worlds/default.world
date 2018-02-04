@@ -6,6 +6,7 @@
         "look",
         "move",
         "who",
+        "say",
         "broadcast",
         "info"
     ],
@@ -33,6 +34,7 @@
             "id": 1,
             "name": "Giroux",
             "description": "He is a hockey player.",
+            "currentRoom": 2,
             "dialogue": [
                 "I like hockey!",
                 "My beard is glorious!"

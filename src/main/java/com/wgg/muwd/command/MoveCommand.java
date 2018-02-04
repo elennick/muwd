@@ -44,8 +44,8 @@ public class MoveCommand extends Command {
             client.setCurrentRoom(roomToMoveTo);
             Room newRoom = worldManager.getCurrentRoom(client);
 
-            List<String> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(newRoom);
-            List<String> allNpcsInRoom = clientRegistry.getAllNpcsInRoom(newRoom);
+            List<String> allPlayersInRoom = clientRegistry.getAllPlayerNamesInRoom(newRoom);
+            List<String> allNpcsInRoom = clientRegistry.getAllNpcNamesInRoom(newRoom);
             String newRoomText = newRoom.getTerminalFormattedText(allPlayersInRoom, allNpcsInRoom);
 
             String response = "Moving " + direction + "...<br/>" + newRoomText;

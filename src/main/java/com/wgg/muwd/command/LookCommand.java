@@ -32,8 +32,8 @@ public class LookCommand extends Command {
     @Override
     public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
         Room room = worldManager.getCurrentRoom(client);
-        List<String> allPlayersInRoom = clientRegistry.getAllPlayersInRoom(room);
-        List<String> allNpcsInRoom = clientRegistry.getAllNpcsInRoom(room);
+        List<String> allPlayersInRoom = clientRegistry.getAllPlayerNamesInRoom(room);
+        List<String> allNpcsInRoom = clientRegistry.getAllNpcNamesInRoom(room);
         return Optional.of(room.getTerminalFormattedText(allPlayersInRoom, allNpcsInRoom));
     }
 

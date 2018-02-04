@@ -12,10 +12,7 @@ abstract class Client {
     @NonNull
     private Long currentRoom;
 
-    public Client() {
-        this.name = "NULL";
-        this.currentRoom = 1L;
-    }
+    public Client() {}
 
     public Client(String name, Long currentRoom) {
         this.name = name;
