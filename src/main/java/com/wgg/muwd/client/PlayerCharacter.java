@@ -2,8 +2,10 @@ package com.wgg.muwd.client;
 
 import lombok.Data;
 import lombok.NonNull;
+import lombok.ToString;
 
 @Data
+@ToString(callSuper = true)
 public class PlayerCharacter extends Client {
 
     @NonNull

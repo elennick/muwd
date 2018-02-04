@@ -44,6 +44,12 @@ public class ClientRegistry {
         return Lists.newArrayList(pcRegistry.values());
     }
 
+    public List<String> getPlayerClientNames() {
+        return pcRegistry.values().stream()
+                .map(PlayerCharacter::getName)
+                .collect(Collectors.toList());
+    }
+
     public List<PlayerCharacter> getAllPlayersInRoom(Long roomId) {
         return pcRegistry.values().stream()
                 .filter(c -> Objects.equals(c.getCurrentRoom(), roomId))

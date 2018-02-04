@@ -1,7 +1,7 @@
 package com.wgg.muwd.command;
 
-import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.client.ClientRegistry;
+import com.wgg.muwd.client.PlayerCharacter;
 import com.wgg.muwd.world.World;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -27,8 +27,9 @@ public class WhoCommand extends Command {
 
     @Override
     public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
-        List<PlayerCharacter> clients = clientRegistry.getPlayerClients();
-        String response = StringUtils.collectionToDelimitedString(clients, ", ");
+        List<String> names = clientRegistry.getPlayerClientNames();
+        String listOfNames = StringUtils.collectionToDelimitedString(names, ", ");
+        String response = "<span style=\"color: green;\">Players online:</span>&nbsp;" + listOfNames;
         return Optional.of(response);
     }
 

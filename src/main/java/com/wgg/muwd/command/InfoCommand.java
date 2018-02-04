@@ -6,6 +6,7 @@ import com.wgg.muwd.world.World;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class InfoCommand extends Command {
 
@@ -21,7 +22,14 @@ public class InfoCommand extends Command {
 
     @Override
     public Optional<String> getResponse(String[] input, World world, PlayerCharacter client) {
-        return Optional.of("Your name: " + client.getName());
+        final long loggedInForMs = System.currentTimeMillis() - client.getLoggedInAt();
+        final long loggedInForSeconds = TimeUnit.MILLISECONDS.toSeconds(loggedInForMs);
+
+        String stringBuilder = "<span style=\"color: red;\">--==** " + client.getName() + " **==--</span><br/>" +
+                "<span style=\"color: white;\">Logged in for:</span> " + loggedInForSeconds + " seconds<br/>" +
+                "<span style=\"color: white;\">Inventory:</span> EMPTY<br/>";
+
+        return Optional.of(stringBuilder);
     }
 
     @Override
